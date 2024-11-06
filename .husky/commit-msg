@@ -1,0 +1,28 @@
+
+echo -n "✍️  Running commitlint"
+
+npx --no -- commitlint --edit "$1"
+if [ $? -ne 0 ]; then
+  echo -e "\r❌ Commitlint failed"
+  exit 1
+fi
+echo -e "\r✅ Commitlint passed"
+
+echo -n "🔍 Running ESLint"
+
+npx eslint src/
+
+if [ $? -ne 0 ]; then
+  echo -e "\r❌ ESLint failed"
+  exit 1
+fi
+echo -e "\r✅ ESLint passed"
+
+echo -n "🔍 Running TypeScript type check"
+
+npx tsc --noEmit
+if [ $? -ne 0 ]; then
+  echo -e "\r❌ TypeScript type check failed"
+  exit 1
+fi
+echo -e "\r✅ TypeScript type check passed"
