@@ -1,5 +1,3 @@
-// import { Text } from '@developerskyi/react-components'
-
 export default async function DashboardPage() {
   return (
     <>
