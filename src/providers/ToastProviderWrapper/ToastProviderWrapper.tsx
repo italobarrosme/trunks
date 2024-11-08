@@ -3,7 +3,7 @@
 import { Toaster } from '@developerskyi/react-components'
 import { ReactNode } from 'react'
 
-type ToastProviderProps = {
+type ToastProviderWrapperProps = {
   children: ReactNode
   position:
     | 'bottom/center'
@@ -15,7 +15,10 @@ type ToastProviderProps = {
     | undefined
 }
 
-export const ToastProvider = ({ children, position }: ToastProviderProps) => {
+export const ToastProviderWrapper = ({
+  children,
+  position,
+}: ToastProviderWrapperProps) => {
   return (
     <>
       {children}

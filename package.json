@@ -24,7 +24,8 @@
     "*.js": "eslint --cache --fix"
   },
   "dependencies": {
-    "@developerskyi/react-components": "^2.3.0",
+    "@clerk/nextjs": "^6.2.1",
+    "@developerskyi/react-components": "^2.3.1",
     "@faker-js/faker": "^9.2.0",
     "@hookform/resolvers": "^3.3.2",
     "@prisma/client": "^5.22.0",

@@ -2,14 +2,16 @@ import '@/styles/globals.css'
 
 import { ReactNode } from 'react'
 import { Metadata } from 'next'
-import { ToastProvider } from '@/providers/toast'
+import { ToastProviderWrapper } from '@/providers/ToastProviderWrapper'
+import { ClerkProviderWrapper } from '@/providers/ClerkProviderWrapper'
+import { Mulish } from 'next/font/google'
 
 type Props = {
   children?: ReactNode
 }
 
 export const metadata: Metadata = {
-  title: 'Nobles - Site',
+  title: 'sky.finance - Site',
   description: 'Sistema finaceiro',
   manifest: '/manifest.json',
   icons: {
@@ -17,14 +19,22 @@ export const metadata: Metadata = {
   },
 }
 
+const mulish = Mulish({
+  subsets: ['latin'],
+})
+
 export default function RootLayout({ children }: Props) {
   return (
-    <html lang="en">
-      <body className="flex min-h-screen flex-col items-center justify-center bg-neutral-dark bg-effect-granula p-4">
-        <ToastProvider position={'bottom/right'}>
-          <main>{children}</main>
-        </ToastProvider>
-      </body>
-    </html>
+    <ClerkProviderWrapper>
+      <html lang="en">
+        <body
+          className={`${mulish.className} min-h-screen bg-neutral-dark bg-effect-granula`}
+        >
+          <ToastProviderWrapper position={'bottom/right'}>
+            <main>{children}</main>
+          </ToastProviderWrapper>
+        </body>
+      </html>
+    </ClerkProviderWrapper>
   )
 }
