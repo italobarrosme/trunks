@@ -50,6 +50,7 @@ enum TransactionPaymentMethod {
   CREDIT_CARD
   BANK_TRANSFER
   BANK_SLIP
+  PIX
   PAYPAL
   BITCOIN
   CRYPTO

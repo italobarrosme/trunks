@@ -37,3 +37,9 @@ export enum TRANSACTION_CATEGORY_TRANSLATION {
   INVESTMENT = 'Investimento',
   OTHER = 'Outro',
 }
+
+export enum TRANSACTION_TYPE_TRANSLATION {
+  INCOME = 'Ganho',
+  EXPENSE = 'Despesa',
+  INVESTMENT = 'Investimento',
+}
