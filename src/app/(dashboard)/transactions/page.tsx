@@ -1,10 +1,18 @@
+import { TableTransactions } from '@/modules/transactions/components/TableTransactions'
+import { AddTransactionForm } from '@/modules/transactions/forms'
+import { getTransactions } from '@/modules/transactions/services'
 // import { Text } from '@developerskyi/react-components'
 
 export default async function TransactionsPage() {
+  const transactionsList = await getTransactions()
+
   return (
     <>
-      <section className="flex max-w-5xl flex-col gap-16 text-primary-regular">
-        transactions page
+      <section className="flex flex-col gap-4 p-6">
+        <AddTransactionForm />
+        <div>
+          <TableTransactions transactions={transactionsList} />
+        </div>
       </section>
     </>
   )

@@ -1,4 +1,6 @@
 import { NavBar, NavBarLogo } from '@/modules/navigation/components/Navbar'
+import { userButtonAppearance } from '@/providers/ClerkProviderWrapper'
+import { UserButton } from '@clerk/nextjs'
 import { ReactNode } from 'react'
 
 const links = [
@@ -17,7 +19,11 @@ export default function DashboardLayout({ children }: Props) {
       <NavBar
         menuItems={links}
         logo={<NavBarLogo src="/logo_white.png" alt="logo" />}
-        actions={<button className="text-neutral-white">Sair</button>}
+        actions={
+          <div className="items-center">
+            <UserButton showName appearance={userButtonAppearance} />
+          </div>
+        }
       ></NavBar>
       {children}
     </>

@@ -27,9 +27,7 @@ export default function RootLayout({ children }: Props) {
   return (
     <ClerkProviderWrapper>
       <html lang="en">
-        <body
-          className={`${mulish.className} min-h-screen bg-neutral-dark bg-effect-granula`}
-        >
+        <body className={`${mulish.className} min-h-screen bg-neutral-shadow`}>
           <ToastProviderWrapper position={'bottom/right'}>
             <main>{children}</main>
           </ToastProviderWrapper>

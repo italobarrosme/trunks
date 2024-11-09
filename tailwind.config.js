@@ -28,6 +28,7 @@ module.exports = {
           white: 'hsl(var(--color-neutral-white))',
           light: 'hsl(var(--color-neutral-light))',
           lightest: 'hsl(var(--color-neutral-lightest))',
+          shadow: 'hsl(var(--color-neutral-shadow))',
           dark: 'hsl(var(--color-neutral-dark))',
         },
         feedback: {
