@@ -29,7 +29,7 @@ import {
   TRANSACTION_CATEGORY_TRANSLATION,
   TRANSACTION_TYPE_TRANSLATION,
 } from '../../constants'
-import { postCreateTransaction } from '../../services/postCreateTransaction'
+import { putTransaction } from '../../services/putTransaction'
 import { useState } from 'react'
 
 type HandleTransactionFormProps = {
@@ -53,12 +53,13 @@ export const HandleTransactionForm = ({
   } = useForm<HandleTransactionFormSchema>({
     resolver: zodResolver(handleTransactionFormSchema),
     defaultValues: {
+      id: defaultValues?.id,
       name: defaultValues?.name || '',
       amount: defaultValues?.amount.toString() || '',
       type: defaultValues?.type || TransactionType.EXPENSE,
-      category: defaultValues?.category || TransactionCategory.OTHER,
+      category: defaultValues?.category || TransactionCategory.FOOD,
       paymentMethod:
-        defaultValues?.paymentMethod || TransactionPaymentMethod.PIX,
+        defaultValues?.paymentMethod || TransactionPaymentMethod.CREDIT_CARD,
       date: defaultValues?.date || new Date().toISOString(),
       description: defaultValues?.description,
     },
@@ -68,7 +69,7 @@ export const HandleTransactionForm = ({
     setLoading(true)
 
     try {
-      await postCreateTransaction(data)
+      await putTransaction(data)
 
       Toastify({
         description: 'Transação cadastrada com sucesso',
@@ -77,7 +78,14 @@ export const HandleTransactionForm = ({
         },
       })
     } catch (err) {
-      console.error(err)
+      if (err instanceof Error) {
+        Toastify({
+          description: 'Erro ao cadastrar transação',
+          option: {
+            type: 'error',
+          },
+        })
+      }
     } finally {
       setLoading(false)
     }
@@ -130,6 +138,7 @@ export const HandleTransactionForm = ({
               error={errors.date?.message}
               className="text-sm text-neutral-dark"
               {...register('date')}
+              defaultValue={defaultValues?.date}
               emitValue={(value) => {
                 setValue('date', value as string)
               }}
@@ -141,8 +150,8 @@ export const HandleTransactionForm = ({
               errorMessage={errors.type?.message}
               {...register('type')}
               className="text-sm text-neutral-dark"
-              defaultValue={TransactionType.EXPENSE}
               options={getEnumOptions(TRANSACTION_TYPE_TRANSLATION)}
+              defaultValue={defaultValues?.type}
               onValueChange={(value: string) => {
                 setValue('type', value as TransactionType)
               }}
@@ -152,8 +161,8 @@ export const HandleTransactionForm = ({
               errorMessage={errors.category?.message}
               {...register('category')}
               className="text-lg text-neutral-dark"
-              defaultValue={TransactionCategory.OTHER}
               options={getEnumOptions(TRANSACTION_CATEGORY_TRANSLATION)}
+              defaultValue={defaultValues?.category}
               onValueChange={(value) => {
                 setValue('category', value as TransactionCategory)
               }}
@@ -163,8 +172,8 @@ export const HandleTransactionForm = ({
               errorMessage={errors.paymentMethod?.message}
               {...register('paymentMethod')}
               className="text-xs text-neutral-dark"
-              defaultValue={TransactionPaymentMethod.PIX}
               options={getEnumOptions(PAYMENT_METHOD_TRANSLATION)}
+              defaultValue={defaultValues?.paymentMethod}
               onValueChange={(value) => {
                 setValue('paymentMethod', value as TransactionPaymentMethod)
               }}

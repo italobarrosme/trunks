@@ -6,6 +6,7 @@ import {
 import { z } from 'zod'
 
 export const handleTransactionFormSchema = z.object({
+  id: z.string().optional(),
   name: z.string().trim().nonempty({
     message: 'O valor não pode ser vazio',
   }),

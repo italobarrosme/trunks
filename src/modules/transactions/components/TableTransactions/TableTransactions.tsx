@@ -22,6 +22,7 @@ import {
   formatCurrency,
 } from '../../functions'
 import { HandleTransactionForm } from '../../forms'
+import { DeleteTransactionForm } from '../../forms/DeleteTransactionForm'
 
 type TableTransactionsProps = {
   transactions: any
@@ -90,6 +91,8 @@ export const TableTransactions = ({ transactions }: TableTransactionsProps) => {
                 </TableCell>
                 <TableCell className="flex">
                   <HandleTransactionForm
+                    edit
+                    defaultValues={transaction}
                     trigger={
                       <Button
                         variant="fit/ghost"
@@ -98,12 +101,18 @@ export const TableTransactions = ({ transactions }: TableTransactionsProps) => {
                         <Icon icon="akar-icons:edit" />
                       </Button>
                     }
-                    edit
-                    defaultValues={transaction}
                   />
-                  <Button variant="fit/ghost" className="text-neutral-white">
-                    <Icon icon="lucide:trash" />
-                  </Button>
+                  <DeleteTransactionForm
+                    id={transaction.id}
+                    trigger={
+                      <Button
+                        variant="fit/ghost"
+                        className="text-neutral-white"
+                      >
+                        <Icon icon="lucide:trash" />
+                      </Button>
+                    }
+                  />
                 </TableCell>
               </TableRow>
             ))
