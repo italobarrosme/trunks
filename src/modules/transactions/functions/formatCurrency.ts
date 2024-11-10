@@ -6,5 +6,5 @@ export const formatCurrency = (value: number): string => {
 }
 
 export const formatCurrencyStrigToDecimal = (value: string): number => {
-  return Number(value.replace('R$', '').replace(',', '.'))
+  return Number(value.replace(/\D/g, '').replace(/(\d{2})$/, '.$1'))
 }
