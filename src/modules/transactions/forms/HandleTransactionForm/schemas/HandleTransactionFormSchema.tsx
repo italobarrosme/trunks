@@ -5,7 +5,7 @@ import {
 } from '@prisma/client'
 import { z } from 'zod'
 
-export const addTransactionSchema = z.object({
+export const handleTransactionFormSchema = z.object({
   name: z.string().trim().nonempty({
     message: 'O valor não pode ser vazio',
   }),
@@ -27,4 +27,6 @@ export const addTransactionSchema = z.object({
   description: z.string().optional(),
 })
 
-export type AddTransactionSchema = z.infer<typeof addTransactionSchema>
+export type HandleTransactionFormSchema = z.infer<
+  typeof handleTransactionFormSchema
+>

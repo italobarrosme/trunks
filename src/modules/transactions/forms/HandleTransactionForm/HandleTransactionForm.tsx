@@ -11,13 +11,13 @@ import {
   Toastify,
   SidePanelButtonClose,
 } from '@developerskyi/react-components'
-import { TableController } from '../../components/TableController'
+import { TableControllerPanel } from '../../components/TableControllerPanel'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
-  AddTransactionSchema,
-  addTransactionSchema,
-} from './schemas/AddTransactionSchema'
+  handleTransactionFormSchema,
+  HandleTransactionFormSchema,
+} from './schemas/HandleTransactionFormSchema'
 import {
   TransactionCategory,
   TransactionPaymentMethod,
@@ -29,10 +29,20 @@ import {
   TRANSACTION_CATEGORY_TRANSLATION,
   TRANSACTION_TYPE_TRANSLATION,
 } from '../../constants'
-import { postTransactions } from '../../services/postTransactions'
+import { postCreateTransaction } from '../../services/postCreateTransaction'
 import { useState } from 'react'
 
-export const AddTransactionForm = () => {
+type HandleTransactionFormProps = {
+  edit?: boolean
+  defaultValues?: HandleTransactionFormSchema
+  trigger: React.ReactNode
+}
+
+export const HandleTransactionForm = ({
+  edit,
+  defaultValues,
+  trigger,
+}: HandleTransactionFormProps) => {
   const [loading, setLoading] = useState(false)
 
   const {
@@ -40,24 +50,25 @@ export const AddTransactionForm = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<AddTransactionSchema>({
-    resolver: zodResolver(addTransactionSchema),
+  } = useForm<HandleTransactionFormSchema>({
+    resolver: zodResolver(handleTransactionFormSchema),
     defaultValues: {
-      name: '',
-      amount: '',
-      type: TransactionType.EXPENSE,
-      category: TransactionCategory.OTHER,
-      paymentMethod: TransactionPaymentMethod.PIX,
-      date: '',
-      description: '',
+      name: defaultValues?.name || '',
+      amount: defaultValues?.amount.toString() || '',
+      type: defaultValues?.type || TransactionType.EXPENSE,
+      category: defaultValues?.category || TransactionCategory.OTHER,
+      paymentMethod:
+        defaultValues?.paymentMethod || TransactionPaymentMethod.PIX,
+      date: defaultValues?.date || new Date().toISOString(),
+      description: defaultValues?.description,
     },
   })
 
-  const onSubmit = async (data: AddTransactionSchema) => {
+  const onSubmit = async (data: HandleTransactionFormSchema) => {
     setLoading(true)
 
     try {
-      await postTransactions(data)
+      await postCreateTransaction(data)
 
       Toastify({
         description: 'Transação cadastrada com sucesso',
@@ -73,11 +84,11 @@ export const AddTransactionForm = () => {
   }
 
   return (
-    <TableController title={'Transações'}>
+    <TableControllerPanel trigger={trigger}>
       <div className="flex flex-row">
         <div className="flex w-1/2 flex-col justify-center gap-6 px-6">
           <Text variant="3xl/semibold" tag="h2" className="text-neutral-white">
-            Formulário para Cadastro de Transações
+            Formulário para {edit ? 'Edição' : 'Criação'} de Transações
           </Text>
           <Text className="text-neutral-white">
             Neste formulário, você pode cadastrar transações de despesas e
@@ -162,7 +173,9 @@ export const AddTransactionForm = () => {
 
           <fieldset className="flex flex-row-reverse gap-4">
             <Button variant="fit/regular" type="submit" disabled={loading}>
-              {loading ? 'Carregando...' : 'Adicionar Transaçãor'}
+              {loading
+                ? 'Carregando...'
+                : `${edit ? 'Editar' : 'Criar'} Transação`}
             </Button>
             <SidePanelButtonClose>
               <Button variant="fit/outline" type="reset">
@@ -172,6 +185,6 @@ export const AddTransactionForm = () => {
           </fieldset>
         </form>
       </div>
-    </TableController>
+    </TableControllerPanel>
   )
 }

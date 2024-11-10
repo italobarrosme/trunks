@@ -6,5 +6,5 @@ export const formatCurrency = (value: number): string => {
 }
 
 export const formatCurrencyStrigToDecimal = (value: string): number => {
-  return parseFloat(value.replace('R$', '').replace(',', '.'))
+  return Number(value.replace('R$', '').replace(',', '.'))
 }
