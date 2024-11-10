@@ -12,12 +12,12 @@ export const getSummaryTransactionType = async ({
   type,
   month,
 }: SummaryTransactionTypeParams) => {
-  const summaryTotal = await db.transaction.aggregate({
+  const summaryResult = await db.transaction.aggregate({
     where: {
       type,
       date: {
-        gte: new Date(`${month}-01`),
-        lt: new Date(`${month}-31`),
+        gte: new Date(`2024-${month}-01`),
+        lt: new Date(`2024-${month}-31`),
       },
     },
     _sum: {
@@ -25,7 +25,7 @@ export const getSummaryTransactionType = async ({
     },
   })
 
-  return summaryTotal
+  return Number(summaryResult._sum.amount) || 0
 }
 
 export const getSummaryIncomes = async (month: string) => {
@@ -44,11 +44,5 @@ export const getSummaryTotal = async (month: string) => {
   const summaryIncomes = await getSummaryIncomes(month)
   const summaryExpenses = await getSummaryExpenses(month)
 
-  return {
-    incomes: Number(summaryIncomes._sum.amount) || 0,
-    expenses: Number(summaryExpenses._sum.amount) || 0,
-    total:
-      (Number(summaryIncomes._sum.amount) || 0) -
-      (Number(summaryExpenses._sum.amount) || 0),
-  }
+  return summaryIncomes - summaryExpenses
 }

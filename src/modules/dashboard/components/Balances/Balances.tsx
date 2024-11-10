@@ -23,7 +23,7 @@ export const Balances = ({
     <div className={cn('grid grid-cols-3 gap-6 max-h-80', className)}>
       <BoxSummaryValue
         title="Saldo"
-        value={summaryIncomes}
+        value={summaryBalance}
         icon={
           <Icon
             icon={'lucide:wallet'}
@@ -56,7 +56,7 @@ export const Balances = ({
       />
       <BoxSummaryValue
         title="Receita"
-        value={summaryBalance}
+        value={summaryIncomes}
         icon={
           <Icon
             icon={'lucide:trending-up'}

@@ -5,6 +5,7 @@ import { Button, InputSelect, Text } from '@developerskyi/react-components'
 import { Icon } from '@iconify/react'
 import { useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 
 export const FilterController = () => {
   const searchParams = useSearchParams()
@@ -18,6 +19,8 @@ export const FilterController = () => {
     },
     [searchParams]
   )
+
+  const { push } = useRouter()
 
   return (
     <div className="flex w-full justify-between p-6">
@@ -38,7 +41,7 @@ export const FilterController = () => {
           dark
           onValueChange={(value) => {
             const queryString = createQueryString('month', value)
-            history.pushState({}, '', `?${queryString}`)
+            push(`?${queryString}`)
           }}
         />
       </div>

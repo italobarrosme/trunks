@@ -25,7 +25,9 @@ export const BoxSummaryValue = ({
           <div className="mr-3 p-2">{icon}</div>
           <div>
             <p className="text-sm text-neutral-light">{title}</p>
-            <p className="text-2xl font-bold">{formatCurrency(value)}</p>
+            <p className="text-2xl font-bold">
+              {formatCurrency(Number(value))}
+            </p>
           </div>
         </div>
         {trigger}
