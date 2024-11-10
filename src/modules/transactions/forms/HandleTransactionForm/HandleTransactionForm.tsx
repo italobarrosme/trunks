@@ -151,7 +151,7 @@ export const HandleTransactionForm = ({
               {...register('type')}
               className="text-sm text-neutral-dark"
               options={getEnumOptions(TRANSACTION_TYPE_TRANSLATION)}
-              defaultValue={defaultValues?.type}
+              defaultValue={defaultValues?.type || TransactionType.EXPENSE}
               onValueChange={(value: string) => {
                 setValue('type', value as TransactionType)
               }}
@@ -162,7 +162,7 @@ export const HandleTransactionForm = ({
               {...register('category')}
               className="text-lg text-neutral-dark"
               options={getEnumOptions(TRANSACTION_CATEGORY_TRANSLATION)}
-              defaultValue={defaultValues?.category}
+              defaultValue={defaultValues?.category || TransactionCategory.FOOD}
               onValueChange={(value) => {
                 setValue('category', value as TransactionCategory)
               }}
@@ -173,7 +173,10 @@ export const HandleTransactionForm = ({
               {...register('paymentMethod')}
               className="text-xs text-neutral-dark"
               options={getEnumOptions(PAYMENT_METHOD_TRANSLATION)}
-              defaultValue={defaultValues?.paymentMethod}
+              defaultValue={
+                defaultValues?.paymentMethod ||
+                TransactionPaymentMethod.CREDIT_CARD
+              }
               onValueChange={(value) => {
                 setValue('paymentMethod', value as TransactionPaymentMethod)
               }}
