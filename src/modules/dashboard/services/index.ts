@@ -1,0 +1,1 @@
+export { getSummaryTransactionType } from './getSummaryTransactionType'
