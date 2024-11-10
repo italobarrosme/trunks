@@ -7,6 +7,9 @@ import {
   InputSelect,
   Button,
   Text,
+  InputArea,
+  Toastify,
+  SidePanelButtonClose,
 } from '@developerskyi/react-components'
 import { TableController } from '../../components/TableController'
 import { useForm } from 'react-hook-form'
@@ -26,8 +29,12 @@ import {
   TRANSACTION_CATEGORY_TRANSLATION,
   TRANSACTION_TYPE_TRANSLATION,
 } from '../../constants'
+import { postTransactions } from '../../services/postTransactions'
+import { useState } from 'react'
 
 export const AddTransactionForm = () => {
+  const [loading, setLoading] = useState(false)
+
   const {
     register,
     handleSubmit,
@@ -42,8 +49,28 @@ export const AddTransactionForm = () => {
       category: TransactionCategory.OTHER,
       paymentMethod: TransactionPaymentMethod.PIX,
       date: '',
+      description: '',
     },
   })
+
+  const onSubmit = async (data: AddTransactionSchema) => {
+    setLoading(true)
+
+    try {
+      await postTransactions(data)
+
+      Toastify({
+        description: 'Transação cadastrada com sucesso',
+        option: {
+          type: 'success',
+        },
+      })
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <TableController title={'Transações'}>
@@ -59,8 +86,8 @@ export const AddTransactionForm = () => {
           </Text>
         </div>
         <form
-          onSubmit={handleSubmit((data) => console.log(data, 'data'))}
-          className="flex w-1/2 flex-col justify-center gap-6 p-6"
+          onSubmit={handleSubmit((data) => onSubmit(data))}
+          className="flex w-1/2 flex-col justify-center gap-4 px-6"
         >
           <InputText
             label="Nome"
@@ -74,6 +101,10 @@ export const AddTransactionForm = () => {
             className="text-sm"
             currency={'BRL'}
             {...register('amount')}
+          />
+          <InputArea
+            label="Descrição (Opcional)"
+            {...register('description')}
           />
 
           <fieldset className="relative">
@@ -129,10 +160,15 @@ export const AddTransactionForm = () => {
             />
           </fieldset>
 
-          <fieldset className="flex flex-row-reverse justify-between">
-            <Button variant="fit/regular" type="submit">
-              Adicionar Transação
+          <fieldset className="flex flex-row-reverse gap-4">
+            <Button variant="fit/regular" type="submit" disabled={loading}>
+              {loading ? 'Carregando...' : 'Adicionar Transaçãor'}
             </Button>
+            <SidePanelButtonClose>
+              <Button variant="fit/outline" type="reset">
+                Cancelar
+              </Button>
+            </SidePanelButtonClose>
           </fieldset>
         </form>
       </div>

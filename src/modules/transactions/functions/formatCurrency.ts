@@ -4,3 +4,7 @@ export const formatCurrency = (value: number): string => {
     currency: 'BRL',
   }).format(value)
 }
+
+export const formatCurrencyStrigToDecimal = (value: string): number => {
+  return parseFloat(value.replace('R$', '').replace(',', '.'))
+}

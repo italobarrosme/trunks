@@ -24,6 +24,7 @@ export const addTransactionSchema = z.object({
   date: z.string({
     required_error: 'Selecione a data da transação',
   }),
+  description: z.string().optional(),
 })
 
 export type AddTransactionSchema = z.infer<typeof addTransactionSchema>

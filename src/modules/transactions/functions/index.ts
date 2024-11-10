@@ -1,5 +1,5 @@
 export { formatStyleTransactionType } from './formatStyleTransactionType'
 export { formatTranslation } from './formatTranslation'
 export { formatDate } from './formatDate'
-export { formatCurrency } from './formatCurrency'
+export { formatCurrency, formatCurrencyStrigToDecimal } from './formatCurrency'
 export { getEnumOptions } from './getEnumOptions'

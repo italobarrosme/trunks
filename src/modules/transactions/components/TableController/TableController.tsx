@@ -22,7 +22,7 @@ export const TableController = ({ title, children }: TableControllerProps) => {
           </Button>
         }
       >
-        <div className="h-full bg-neutral-dark p-6 text-neutral-white">
+        <div className="h-screen bg-neutral-dark p-6 text-neutral-white">
           {children}
         </div>
       </SidePanel>
