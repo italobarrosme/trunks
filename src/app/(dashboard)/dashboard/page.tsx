@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import { getMonth } from 'date-fns'
 import { SummaryDataForm } from '@/modules/dashboard/forms/SummaryDataForm'
 import { PieChartDataForm } from '@/modules/dashboard/forms/PieChartDataForm'
+import { SummaryCategoriesDataForm } from '@/modules/dashboard/forms/SummaryCategoriesDataForm'
 
 export default async function DashboardPage({
   searchParams,
@@ -27,9 +28,13 @@ export default async function DashboardPage({
               month={month}
               className="col-span-2 h-fit border-none bg-neutral-dark text-neutral-white"
             />
+            <SummaryCategoriesDataForm
+              month={month}
+              className="col-span-1 h-fit border-none bg-neutral-dark text-neutral-white"
+            />
           </div>
           <div className="h-screen w-1/3">
-            <div className="h-full rounded-lg bg-neutral-dark shadow-lg"></div>
+            <div className="h-full rounded-lg"></div>
           </div>
         </div>
       </section>
