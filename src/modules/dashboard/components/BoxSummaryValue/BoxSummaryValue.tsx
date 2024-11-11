@@ -4,7 +4,8 @@ import { Card } from '@developerskyi/react-components'
 import React from 'react'
 
 export type BoxSummaryValueProps = {
-  value: number
+  valueMoney?: number
+  valuePercent?: number
   title: string
   icon: React.ReactNode
   trigger?: React.ReactNode
@@ -12,7 +13,8 @@ export type BoxSummaryValueProps = {
 }
 
 export const BoxSummaryValue = ({
-  value,
+  valueMoney,
+  valuePercent,
   title,
   icon,
   trigger,
@@ -26,7 +28,12 @@ export const BoxSummaryValue = ({
           <div>
             <p className="text-sm text-neutral-light">{title}</p>
             <p className="text-2xl font-bold">
-              {formatCurrency(Number(value))}
+              {Number(valueMoney) >= 0
+                ? formatCurrency(Number(valueMoney))
+                : ''}
+            </p>
+            <p className="text-sm text-neutral-white">
+              {valuePercent && `${valuePercent}%`}
             </p>
           </div>
         </div>

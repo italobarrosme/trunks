@@ -20,10 +20,10 @@ export const Balances = ({
   className,
 }: BalancesProps) => {
   return (
-    <div className={cn('grid grid-cols-3 gap-6 max-h-80', className)}>
+    <div className={cn('grid grid-cols-3 gap-4 max-h-80', className)}>
       <BoxSummaryValue
         title="Saldo"
-        value={summaryBalance}
+        valueMoney={summaryBalance}
         icon={
           <Icon
             icon={'lucide:wallet'}
@@ -44,7 +44,7 @@ export const Balances = ({
       />
       <BoxSummaryValue
         title="Investido"
-        value={summaryInvested}
+        valueMoney={summaryInvested}
         icon={
           <Icon
             icon={'lucide:chart-line'}
@@ -56,7 +56,7 @@ export const Balances = ({
       />
       <BoxSummaryValue
         title="Receita"
-        value={summaryIncomes}
+        valueMoney={summaryIncomes}
         icon={
           <Icon
             icon={'lucide:trending-up'}
@@ -68,7 +68,7 @@ export const Balances = ({
       />
       <BoxSummaryValue
         title="Despesas"
-        value={summaryExpenses}
+        valueMoney={summaryExpenses}
         icon={
           <Icon
             icon={'lucide:trending-down'}

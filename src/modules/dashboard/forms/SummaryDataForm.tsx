@@ -2,23 +2,27 @@ import {
   getSummaryIncomes,
   getSummaryExpenses,
   getSummaryInvestments,
-  getSummaryTotal,
+  getSummaryBalance,
 } from '@/modules/dashboard/services/getSummaryTransactionType'
 import { Balances } from '../components/Balances'
 
 type SummaryDataFormProps = {
   month: string
+  className?: string
 }
 
-export const SummaryDataForm = async ({ month }: SummaryDataFormProps) => {
+export const SummaryDataForm = async ({
+  month,
+  className,
+}: SummaryDataFormProps) => {
   const summaryIncomes = await getSummaryIncomes(month)
   const summaryExpenses = await getSummaryExpenses(month)
   const summaryInvested = await getSummaryInvestments(month)
-  const summaryBalance = await getSummaryTotal(month)
+  const summaryBalance = await getSummaryBalance(month)
 
   return (
     <Balances
-      className="w-full"
+      className={className}
       summaryIncomes={summaryIncomes}
       summaryExpenses={summaryExpenses}
       summaryInvested={summaryInvested}

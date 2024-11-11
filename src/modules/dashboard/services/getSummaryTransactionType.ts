@@ -40,9 +40,17 @@ export const getSummaryInvestments = async (month: string) => {
   return getSummaryTransactionType({ type: TransactionType.INVESTMENT, month })
 }
 
-export const getSummaryTotal = async (month: string) => {
+export const getSummaryBalance = async (month: string) => {
   const summaryIncomes = await getSummaryIncomes(month)
   const summaryExpenses = await getSummaryExpenses(month)
 
   return summaryIncomes - summaryExpenses
+}
+
+export const getSummaryTotalTransactions = async (month: string) => {
+  const summaryIncomes = await getSummaryIncomes(month)
+  const summaryExpenses = await getSummaryExpenses(month)
+  const summaryInvested = await getSummaryInvestments(month)
+
+  return summaryIncomes + summaryExpenses + summaryInvested
 }

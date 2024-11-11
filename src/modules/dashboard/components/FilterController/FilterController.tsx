@@ -23,7 +23,7 @@ export const FilterController = () => {
   const { push } = useRouter()
 
   return (
-    <div className="flex w-full justify-between p-6">
+    <div className="flex w-full justify-between px-6 py-4">
       <Text variant="3xl/bold" tag="h2" className="text-neutral-white">
         Dashboard
       </Text>

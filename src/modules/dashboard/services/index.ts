@@ -1,1 +1,8 @@
-export { getSummaryTransactionType } from './getSummaryTransactionType'
+export {
+  getSummaryTransactionType,
+  getSummaryExpenses,
+  getSummaryIncomes,
+  getSummaryInvestments,
+  getSummaryBalance,
+  getSummaryTotalTransactions,
+} from './getSummaryTransactionType'

@@ -6,7 +6,7 @@ export default async function TransactionsPage() {
 
   return (
     <>
-      <section className="flex flex-col gap-4 p-6">
+      <section className="flex flex-col gap-4 px-6 py-4">
         <TableTransactions transactions={transactionsList} />
       </section>
     </>
