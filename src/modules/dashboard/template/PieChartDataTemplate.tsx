@@ -1,27 +1,22 @@
 import { ChartConfig } from '@/modules/shared/components/Charts'
 import { PieCharts } from '../components/PieCharts'
-import {
-  getSummaryExpenses,
-  getSummaryIncomes,
-  getSummaryInvestments,
-} from '../services/getSummaryTransactionType'
 import { BoxSummaryValue } from '../components/BoxSummaryValue'
 import { Icon } from '@iconify/react'
 import { Card, Text } from '@developerskyi/react-components'
 import { cn } from '@/utils'
+import { SummaryDataAction } from '../actions'
 
 type PieChartDataFormProps = {
   className?: string
   month: string
 }
 
-export const PieChartDataForm = async ({
+export const PieChartDataTemplate = async ({
   className,
   month,
 }: PieChartDataFormProps) => {
-  const summaryIncomes = await getSummaryIncomes(month)
-  const summaryExpenses = await getSummaryExpenses(month)
-  const summaryInvested = await getSummaryInvestments(month)
+  const { summaryIncomes, summaryExpenses, summaryInvested } =
+    await SummaryDataAction(month)
 
   const summaryTotal = summaryIncomes + summaryExpenses + summaryInvested
 

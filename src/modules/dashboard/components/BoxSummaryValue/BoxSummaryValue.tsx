@@ -22,7 +22,7 @@ export const BoxSummaryValue = ({
 }: BoxSummaryValueProps) => {
   return (
     <Card className={cn('bg-neutral-dark border-none shadow-lg', className)}>
-      <div className="flex h-full items-end justify-between">
+      <div className="flex h-full items-start justify-between">
         <div className="flex h-full items-center">
           <div className="mr-3 p-2">{icon}</div>
           <div>

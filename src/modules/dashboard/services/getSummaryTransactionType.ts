@@ -28,29 +28,33 @@ export const getSummaryTransactionType = async ({
   return Number(summaryResult._sum.amount) || 0
 }
 
-export const getSummaryIncomes = async (month: string) => {
-  return getSummaryTransactionType({ type: TransactionType.INCOME, month })
-}
-
-export const getSummaryExpenses = async (month: string) => {
-  return getSummaryTransactionType({ type: TransactionType.EXPENSE, month })
-}
-
-export const getSummaryInvestments = async (month: string) => {
-  return getSummaryTransactionType({ type: TransactionType.INVESTMENT, month })
-}
-
 export const getSummaryBalance = async (month: string) => {
-  const summaryIncomes = await getSummaryIncomes(month)
-  const summaryExpenses = await getSummaryExpenses(month)
+  const summaryIncomes = await getSummaryTransactionType({
+    type: TransactionType.INCOME,
+    month,
+  })
+  const summaryExpenses = await getSummaryTransactionType({
+    type: TransactionType.EXPENSE,
+    month,
+  })
 
   return summaryIncomes - summaryExpenses
 }
 
 export const getSummaryTotalTransactions = async (month: string) => {
-  const summaryIncomes = await getSummaryIncomes(month)
-  const summaryExpenses = await getSummaryExpenses(month)
-  const summaryInvested = await getSummaryInvestments(month)
+  const summaryIncomes = await getSummaryTransactionType({
+    type: TransactionType.INCOME,
+    month,
+  })
+  const summaryExpenses = await getSummaryTransactionType({
+    type: TransactionType.EXPENSE,
+    month,
+  })
+
+  const summaryInvested = await getSummaryTransactionType({
+    type: TransactionType.INVESTMENT,
+    month,
+  })
 
   return summaryIncomes + summaryExpenses + summaryInvested
 }

@@ -1,26 +1,24 @@
 import { cn } from '@/utils'
-import { BoxSummaryValue } from '../BoxSummaryValue'
+import { BoxSummaryValue } from '../components/BoxSummaryValue'
 import { HandleTransactionForm } from '@/modules/transactions/forms'
 import { Button } from '@developerskyi/react-components'
 import { Icon } from '@iconify/react'
 import { setIconTransactionType } from '@/modules/transactions/functions/setIconTransactionType'
 import { TransactionType } from '@prisma/client'
+import { SummaryDataAction } from '../actions'
 
-type BalancesProps = {
+type BalancesTemplateProps = {
   className?: string
-  summaryIncomes: any
-  summaryExpenses: any
-  summaryInvested: any
-  summaryBalance: any
+  month: string
 }
 
-export const Balances = ({
-  summaryIncomes,
-  summaryExpenses,
-  summaryInvested,
-  summaryBalance,
+export const BalancesTemplate = async ({
   className,
-}: BalancesProps) => {
+  month,
+}: BalancesTemplateProps) => {
+  const { summaryBalance, summaryExpenses, summaryIncomes, summaryInvested } =
+    await SummaryDataAction(month)
+
   return (
     <div className={cn('grid grid-cols-3 gap-4 max-h-80', className)}>
       <BoxSummaryValue
@@ -33,7 +31,7 @@ export const Balances = ({
             className="rounded-md bg-neutral-shadow p-2 text-neutral-white"
           />
         }
-        className="col-span-3 text-neutral-white"
+        className="col-span-3 text-neutral-white shadow-none"
         trigger={
           <HandleTransactionForm
             trigger={
@@ -54,7 +52,7 @@ export const Balances = ({
             className="rounded-md bg-feedback-info/10 p-2 text-feedback-info"
           />
         }
-        className="text-neutral-white"
+        className="text-neutral-white shadow-none"
       />
       <BoxSummaryValue
         title="Receita"
@@ -66,7 +64,7 @@ export const Balances = ({
             className="rounded-md bg-feedback-success/10 p-2 text-feedback-success"
           />
         }
-        className=" text-neutral-white"
+        className=" text-neutral-white shadow-none"
       />
       <BoxSummaryValue
         title="Despesas"
@@ -78,7 +76,7 @@ export const Balances = ({
             className="rounded-md bg-feedback-error/10 p-2 text-feedback-error"
           />
         }
-        className=" text-neutral-white"
+        className=" text-neutral-white shadow-none"
       />
     </div>
   )

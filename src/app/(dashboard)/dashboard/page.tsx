@@ -2,10 +2,14 @@ import { FilterController } from '@/modules/dashboard/components/FilterControlle
 import { PageWithSearchParams } from '@/modules/shared/types/types'
 import { redirect } from 'next/navigation'
 import { getMonth } from 'date-fns'
-import { SummaryDataForm } from '@/modules/dashboard/forms/SummaryDataForm'
-import { PieChartDataForm } from '@/modules/dashboard/forms/PieChartDataForm'
-import { SummaryCategoriesDataForm } from '@/modules/dashboard/forms/SummaryCategoriesDataForm'
-import { LastTransactionForm } from '@/modules/dashboard/forms/LastTransactionForm'
+import {
+  PieChartDataTemplate,
+  BalancesTemplate,
+  SummaryCategoriesDataTemplate,
+} from '@/modules/dashboard/template'
+import { Card } from '@developerskyi/react-components'
+import { LastTransactions } from '@/modules/dashboard/components/LastTransactions'
+import { LastTransactionsAction } from '@/modules/dashboard/actions'
 
 export default async function DashboardPage({
   searchParams,
@@ -15,8 +19,9 @@ export default async function DashboardPage({
   if (!params.has('month')) {
     redirect(`?month=${getMonth(new Date()) + 1}`)
   }
-
   const month = params.get('month') as string
+
+  const transactions = await LastTransactionsAction()
 
   return (
     <>
@@ -24,19 +29,24 @@ export default async function DashboardPage({
         <FilterController />
         <div className="flex gap-4 px-6">
           <div className="grid w-full grid-cols-3 gap-4">
-            <SummaryDataForm month={month} className="col-span-3" />
-            <PieChartDataForm
+            <BalancesTemplate
+              month={month}
+              className="col-span-3 h-full rounded-md border-none bg-neutral-dark p-4 text-neutral-white"
+            />
+            <PieChartDataTemplate
               month={month}
               className="col-span-2 h-fit border-none bg-neutral-dark text-neutral-white"
             />
-            <SummaryCategoriesDataForm
+            <SummaryCategoriesDataTemplate
               month={month}
               className="col-span-1 h-fit border-none bg-neutral-dark text-neutral-white"
             />
           </div>
           <div className="h-screen w-1/3">
             <div className="h-full rounded-lg">
-              <LastTransactionForm />
+              <Card className="h-[833px] border-none bg-neutral-dark text-neutral-white">
+                <LastTransactions transactions={transactions} />
+              </Card>
             </div>
           </div>
         </div>

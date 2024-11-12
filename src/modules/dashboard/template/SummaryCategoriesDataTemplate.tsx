@@ -6,15 +6,15 @@ import { cn } from '@/utils'
 import { formatEnumText } from '@/modules/transactions/functions'
 import { TRANSACTION_CATEGORY_TRANSLATION } from '@/modules/transactions/constants'
 
-type SummaryCategoriesDataFormProps = {
+type SummaryCategoriesDataTemplateProps = {
   month: string
   className?: string
 }
 
-export const SummaryCategoriesDataForm = async ({
+export const SummaryCategoriesDataTemplate = async ({
   month,
   className,
-}: SummaryCategoriesDataFormProps) => {
+}: SummaryCategoriesDataTemplateProps) => {
   const summaryCategoriesExpenses = await getSummaryTransactionCategories(
     month,
     TransactionType.EXPENSE
