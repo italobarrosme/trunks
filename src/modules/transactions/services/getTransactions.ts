@@ -1,13 +1,20 @@
 import { db } from 'prisma/prisma'
 
-export const getTransactions = async () => {
+type GetTransactionParams = {
+  quantity: number
+}
+
+export const getTransactions = async ({ quantity }: GetTransactionParams) => {
   try {
-    const transactions = await db.transaction.findMany({})
+    const transactions = await db.transaction.findMany({
+      take: quantity,
+      orderBy: { date: 'desc' },
+    })
 
     return transactions.map((transaction) => ({
       ...transaction,
       amount: Number(transaction.amount),
-      date: transaction.date.toISOString(),
+      date: transaction.date,
     }))
   } catch (error) {
     console.error('Error fetching transactions:', error)

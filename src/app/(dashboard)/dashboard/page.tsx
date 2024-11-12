@@ -5,6 +5,7 @@ import { getMonth } from 'date-fns'
 import { SummaryDataForm } from '@/modules/dashboard/forms/SummaryDataForm'
 import { PieChartDataForm } from '@/modules/dashboard/forms/PieChartDataForm'
 import { SummaryCategoriesDataForm } from '@/modules/dashboard/forms/SummaryCategoriesDataForm'
+import { LastTransactionForm } from '@/modules/dashboard/forms/LastTransactionForm'
 
 export default async function DashboardPage({
   searchParams,
@@ -34,7 +35,9 @@ export default async function DashboardPage({
             />
           </div>
           <div className="h-screen w-1/3">
-            <div className="h-full rounded-lg"></div>
+            <div className="h-full rounded-lg">
+              <LastTransactionForm />
+            </div>
           </div>
         </div>
       </section>

@@ -1,0 +1,1 @@
+export { LastTransactions } from './LastTransactions'

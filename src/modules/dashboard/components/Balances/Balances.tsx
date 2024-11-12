@@ -3,6 +3,8 @@ import { BoxSummaryValue } from '../BoxSummaryValue'
 import { HandleTransactionForm } from '@/modules/transactions/forms'
 import { Button } from '@developerskyi/react-components'
 import { Icon } from '@iconify/react'
+import { setIconTransactionType } from '@/modules/transactions/functions/setIconTransactionType'
+import { TransactionType } from '@prisma/client'
 
 type BalancesProps = {
   className?: string
@@ -47,19 +49,19 @@ export const Balances = ({
         valueMoney={summaryInvested}
         icon={
           <Icon
-            icon={'lucide:chart-line'}
+            icon={setIconTransactionType(TransactionType.INVESTMENT).text}
             width="36"
             className="rounded-md bg-feedback-info/10 p-2 text-feedback-info"
           />
         }
-        className=" text-neutral-white"
+        className="text-neutral-white"
       />
       <BoxSummaryValue
         title="Receita"
         valueMoney={summaryIncomes}
         icon={
           <Icon
-            icon={'lucide:trending-up'}
+            icon={setIconTransactionType(TransactionType.INCOME).text}
             width="36"
             className="rounded-md bg-feedback-success/10 p-2 text-feedback-success"
           />
@@ -71,7 +73,7 @@ export const Balances = ({
         valueMoney={summaryExpenses}
         icon={
           <Icon
-            icon={'lucide:trending-down'}
+            icon={setIconTransactionType(TransactionType.EXPENSE).text}
             width="36"
             className="rounded-md bg-feedback-error/10 p-2 text-feedback-error"
           />

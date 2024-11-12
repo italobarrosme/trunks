@@ -25,20 +25,29 @@ export const SummaryCategoriesDataForm = async ({
       className={cn('flex flex-col gap-4 min-h-[516px] h-[516px]', className)}
     >
       <Text>Gastos por categoria</Text>
-      <Divider />
+      <Divider className="bg-neutral-shadow" />
       {/* !TODO ADD TABS */}
       <div className="flex flex-col gap-4 overflow-y-auto px-6">
-        {summaryCategoriesExpenses.data.map((item) => (
-          <LineSummaryValue
-            key={item.category}
-            title={formatEnumText(
-              TRANSACTION_CATEGORY_TRANSLATION,
-              item.category
-            )}
-            valueMoney={Number(item.amount)}
-            progress={item.percentage}
-          />
-        ))}
+        {summaryCategoriesExpenses.data.length ? (
+          summaryCategoriesExpenses.data.map((item) => (
+            <LineSummaryValue
+              key={item.category}
+              title={formatEnumText(
+                TRANSACTION_CATEGORY_TRANSLATION,
+                item.category
+              )}
+              valueMoney={Number(item.amount)}
+              progress={item.percentage}
+            />
+          ))
+        ) : (
+          <Text
+            variant="lg/semibold"
+            className="bg-feedback-warning/55 p-2 text-center"
+          >
+            Sem dados para exibir
+          </Text>
+        )}
       </div>
     </Card>
   )
