@@ -2,7 +2,7 @@ import { TableTransactions } from '@/modules/transactions/components/TableTransa
 import { getTransactions } from '@/modules/transactions/services'
 
 export default async function TransactionsPage() {
-  const transactionsList = await getTransactions()
+  const transactionsList = await getTransactions({ quantity: 100 })
 
   return (
     <>
