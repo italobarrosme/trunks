@@ -28,7 +28,9 @@ type PlanCardProps = {
 }
 
 export const PlanCard = ({ plan }: PlanCardProps) => {
-  const buttonPlanLabel = plan.currentPlan ? '' : 'Fazer Upgrade'
+  const buttonPlanLabel = plan.currentPlan
+    ? 'Gerenciar Plano'
+    : 'Adquirir Plano'
 
   return (
     <Card className="w-fit min-w-80 border-none bg-neutral-dark p-6 text-neutral-white">
@@ -60,11 +62,14 @@ export const PlanCard = ({ plan }: PlanCardProps) => {
         </div>
       </div>
       <CardFooter className="px-0">
-        {!plan.currentPlan && (
-          <Button variant="full/regular" onClick={plan.onClick}>
+        {
+          <Button
+            variant={plan.currentPlan ? 'full/ghost' : 'full/regular'}
+            onClick={plan.onClick}
+          >
             {buttonPlanLabel}
           </Button>
-        )}
+        }
       </CardFooter>
     </Card>
   )

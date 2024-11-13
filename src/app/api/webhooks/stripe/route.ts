@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { clerkClient } from '@clerk/nextjs/server'
+import { PLAN_TYPES } from '@/modules/subscriptions/constants/constants'
 
 export async function POST(request: Request) {
-  console.log('Received webhbook ###############')
   if (!process.env.STRIPE_SECRET_KEY || !process.env.STRIPE_WEBHOOK_SECRET) {
     return NextResponse.error()
   }
@@ -18,18 +18,12 @@ export async function POST(request: Request) {
   }
 
   const text = await request.text()
-  let event
 
-  try {
-    event = stripe.webhooks.constructEvent(
-      text,
-      signature,
-      process.env.STRIPE_WEBHOOK_SECRET
-    )
-  } catch (err: any) {
-    console.error(`Webhook signature verification failed: ${err.message}`)
-    return NextResponse.error()
-  }
+  const event = stripe.webhooks.constructEvent(
+    text,
+    signature,
+    process.env.STRIPE_WEBHOOK_SECRET
+  )
 
   switch (event.type) {
     case 'invoice.paid': {
@@ -40,16 +34,36 @@ export async function POST(request: Request) {
         return NextResponse.error()
       }
 
-      await clerkClient.users.updateUser(clerkUserId, {
+      await clerkClient().users.updateUser(clerkUserId, {
         privateMetadata: {
           stripeCustomerId: customer,
           stripeSubscriptionId: subscription,
         },
         publicMetadata: {
-          subscriptionPlan: 'premium',
+          subscriptionPlan: PLAN_TYPES.premium,
         },
       })
       break
+    }
+
+    case 'customer.subscription.deleted': {
+      // Remover plano premium do usuário
+      const subscriptionId = await stripe.subscriptions.retrieve(
+        event.data.object.id
+      )
+      const clerkUserId = subscriptionId.metadata.clerk_user_id
+      if (!clerkUserId) {
+        return NextResponse.error()
+      }
+      await clerkClient().users.updateUser(clerkUserId, {
+        privateMetadata: {
+          stripeCustomerId: null,
+          stripeSubscriptionId: null,
+        },
+        publicMetadata: {
+          subscriptionPlan: null,
+        },
+      })
     }
   }
 

@@ -6,8 +6,14 @@ import { Text } from '@developerskyi/react-components'
 import { PlanCard } from '../components/PlanCard'
 import { createStripeCheckout } from '../actions'
 import { loadStripe } from '@stripe/stripe-js'
+import { useVerifySubscriptionPlan } from '../hooks/useVerifySubscriptionPlan'
+import { PLAN_TYPES } from '../constants/constants'
+import { useRouter } from 'next/navigation'
 
 export const SubscriptionForm = () => {
+  const { subscriptionPlan, user } = useVerifySubscriptionPlan()
+  const { push } = useRouter()
+
   const handleCheckoutPlanPlus = async () => {
     const { sessionId } = await createStripeCheckout()
 
@@ -27,11 +33,21 @@ export const SubscriptionForm = () => {
     })
   }
 
+  const handleManagePlan = () => {
+    if (!process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL) {
+      throw new Error('Stripe customer portal URL not found')
+    }
+
+    push(
+      `${process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${user?.emailAddresses[0].emailAddress}`
+    )
+  }
+
   const PlanAvailables = [
     {
       title: 'Plano Start',
       price: 0,
-      currentPlan: true,
+      currentPlan: subscriptionPlan === PLAN_TYPES.starter,
       onClick: () => handleCheckoutPlanPlus(),
       benefits: [
         {
@@ -57,10 +73,13 @@ export const SubscriptionForm = () => {
       ],
     },
     {
-      title: 'Plano Plus',
+      title: 'Plano Premium',
       price: 29.9,
-      currentPlan: false,
-      onClick: () => handleCheckoutPlanPlus(),
+      currentPlan: subscriptionPlan === PLAN_TYPES.premium,
+      onClick: () =>
+        subscriptionPlan !== PLAN_TYPES.premium
+          ? handleCheckoutPlanPlus()
+          : handleManagePlan(),
       benefits: [
         {
           title: 'Benefício 1',
