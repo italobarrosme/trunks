@@ -13,10 +13,6 @@ type Props = {
 export const metadata: Metadata = {
   title: 'sky.finance - Site',
   description: 'Sistema finaceiro',
-  manifest: '/manifest.json',
-  icons: {
-    apple: '/apple-icon.png',
-  },
 }
 
 const mulish = Mulish({
