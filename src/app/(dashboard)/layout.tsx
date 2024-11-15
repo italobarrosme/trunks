@@ -20,7 +20,7 @@ export default function DashboardLayout({ children }: Props) {
         menuItems={links}
         logo={<NavBarLogo src="/logo_white.png" alt="logo" />}
         actions={
-          <div className="items-center">
+          <div className="w-full">
             <UserButton showName appearance={userButtonAppearance} />
           </div>
         }

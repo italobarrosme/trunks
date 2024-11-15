@@ -47,7 +47,6 @@ export async function POST(request: Request) {
     }
 
     case 'customer.subscription.deleted': {
-      // Remover plano premium do usuário
       const subscriptionId = await stripe.subscriptions.retrieve(
         event.data.object.id
       )
@@ -61,7 +60,7 @@ export async function POST(request: Request) {
           stripeSubscriptionId: null,
         },
         publicMetadata: {
-          subscriptionPlan: null,
+          subscriptionPlan: PLAN_TYPES.starter,
         },
       })
     }

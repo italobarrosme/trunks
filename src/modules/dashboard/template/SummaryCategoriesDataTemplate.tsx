@@ -27,8 +27,18 @@ export const SummaryCategoriesDataTemplate = async ({
       <Text>Gastos por categoria</Text>
       <Divider className="bg-neutral-shadow" />
       {/* !TODO ADD TABS */}
+      {!summaryCategoriesExpenses.data.length && (
+        <div className="flex h-96 flex-col justify-center gap-4 overflow-y-auto px-6">
+          <Text
+            variant="lg/semibold"
+            className="bg-feedback-warning/55 p-2 text-center"
+          >
+            Sem dados para exibir
+          </Text>
+        </div>
+      )}
       <div className="flex flex-col gap-4 overflow-y-auto px-6">
-        {summaryCategoriesExpenses.data.length ? (
+        {!!summaryCategoriesExpenses.data.length &&
           summaryCategoriesExpenses.data.map((item) => (
             <LineSummaryValue
               key={item.category}
@@ -39,15 +49,7 @@ export const SummaryCategoriesDataTemplate = async ({
               valueMoney={Number(item.amount)}
               progress={item.percentage}
             />
-          ))
-        ) : (
-          <Text
-            variant="lg/semibold"
-            className="bg-feedback-warning/55 p-2 text-center"
-          >
-            Sem dados para exibir
-          </Text>
-        )}
+          ))}
       </div>
     </Card>
   )

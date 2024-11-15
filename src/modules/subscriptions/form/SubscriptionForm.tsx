@@ -1,7 +1,5 @@
 'use client'
 
-// import { useForm } from 'react-hook-form'
-// import { zodResolver } from '@hookform/resolvers/zod'
 import { Text } from '@developerskyi/react-components'
 import { PlanCard } from '../components/PlanCard'
 import { createStripeCheckout } from '../actions'
@@ -48,7 +46,8 @@ export const SubscriptionForm = () => {
       title: 'Plano Start',
       price: 0,
       currentPlan: subscriptionPlan === PLAN_TYPES.starter,
-      onClick: () => handleCheckoutPlanPlus(),
+      planType: PLAN_TYPES.starter,
+      onClick: () => false,
       benefits: [
         {
           title: 'Benefício 1',
@@ -76,6 +75,7 @@ export const SubscriptionForm = () => {
       title: 'Plano Premium',
       price: 29.9,
       currentPlan: subscriptionPlan === PLAN_TYPES.premium,
+      planType: PLAN_TYPES.premium,
       onClick: () =>
         subscriptionPlan !== PLAN_TYPES.premium
           ? handleCheckoutPlanPlus()
@@ -99,7 +99,7 @@ export const SubscriptionForm = () => {
         {
           title: 'Benefício 4',
           description: 'Descrição do benefício 4',
-          available: false,
+          available: true,
         },
       ],
     },

@@ -44,13 +44,15 @@ export const NavBar = ({ menuItems, logo, actions }: NavbarProps) => {
 
   return (
     <nav className="flex w-full items-center justify-between gap-4 bg-neutral-dark px-4">
-      <div className="flex w-full items-center gap-4 ">
+      <div className="flex w-full items-center gap-4">
         {logo}
-        <ul className="flex w-full gap-4">
+        <ul className="flex w-full gap-6">
           {menuItems.map((item) => (
             <li
               key={item.link}
               className={cn(
+                `hover:underline hover:translate-x-1 hover:duration-500 hover:ease-in-out
+                -translate-x-1 duration-500 ease-in-out`,
                 isActive(item.link)
                   ? 'text-primary-regular font-bold'
                   : 'text-neutral-light'

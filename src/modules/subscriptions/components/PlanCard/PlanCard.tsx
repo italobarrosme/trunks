@@ -8,6 +8,7 @@ import {
   Chip,
 } from '@developerskyi/react-components'
 import { Icon } from '@iconify/react'
+import { PLAN_TYPES } from '../../constants/constants'
 
 type Benefits = {
   title: string
@@ -18,6 +19,7 @@ type Benefits = {
 type Plan = {
   title: string
   currentPlan: boolean
+  planType: (typeof PLAN_TYPES)[keyof typeof PLAN_TYPES]
   price: number
   benefits: Benefits[]
   onClick?: () => void
@@ -62,14 +64,14 @@ export const PlanCard = ({ plan }: PlanCardProps) => {
         </div>
       </div>
       <CardFooter className="px-0">
-        {
+        {plan.planType === PLAN_TYPES.premium && (
           <Button
             variant={plan.currentPlan ? 'full/ghost' : 'full/regular'}
             onClick={plan.onClick}
           >
             {buttonPlanLabel}
           </Button>
-        }
+        )}
       </CardFooter>
     </Card>
   )
