@@ -28,18 +28,17 @@ export enum TRANSACTION_CATEGORY_TRANSLATION {
   SHOPPING = 'Compras',
   ENTERTAINMENT = 'Entretenimento',
   UTILITY = 'Utilidades',
-  RENT = 'Aluguel',
-  MORTGAGE = 'Hipoteca',
+  SALARY = 'Salário',
   INSURANCE = 'Seguro',
   TAXES = 'Impostos',
   HEALTH = 'Saúde',
   EDUCATION = 'Educação',
-  INVESTMENT = 'Investimento',
   OTHER = 'Outro',
 }
 
 export enum TRANSACTION_TYPE_TRANSLATION {
   INCOME = 'Ganho',
   EXPENSE = 'Despesa',
+  RECURRING_EXPENSE = 'Despesa Recorrente',
   INVESTMENT = 'Investimento',
 }

@@ -8,22 +8,25 @@ datasource db {
 }
 
 model Transaction {
-  id            String                   @id @default(uuid())
-  name          String
-  amount        Decimal                  @db.Decimal(10, 2)
-  type          TransactionType
-  category      TransactionCategory
-  paymentMethod TransactionPaymentMethod
-  description   String?
-  date          DateTime
-  createdAt     DateTime                 @default(now())
-  updatedAt     DateTime                 @updatedAt
-  userId        String
+  id                String                   @id @default(uuid())
+  name              String
+  amount            Decimal                  @db.Decimal(10, 2)
+  type              TransactionType
+  category          TransactionCategory
+  paymentMethod     TransactionPaymentMethod
+  description       String?
+  date              DateTime
+  createdAt         DateTime                 @default(now())
+  updatedAt         DateTime                 @updatedAt
+  userId            String
+  installment       Int?
+  totalInstallments Int?
 }
 
 enum TransactionType {
   INCOME
   EXPENSE
+  RECURRING_EXPENSE
   INVESTMENT
 }
 
@@ -34,13 +37,11 @@ enum TransactionCategory {
   SHOPPING
   ENTERTAINMENT
   UTILITY
-  RENT
-  MORTGAGE
+  SALARY
   INSURANCE
   TAXES
   HEALTH
   EDUCATION
-  INVESTMENT
   OTHER
 }
 
