@@ -63,6 +63,7 @@ export async function POST(request: Request) {
           subscriptionPlan: PLAN_TYPES.starter,
         },
       })
+      break
     }
   }
 

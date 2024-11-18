@@ -1,5 +1,6 @@
 'use server'
 
+import { getUser } from '@/modules/auth/services'
 import { TransactionType } from '@prisma/client'
 import { db } from 'prisma/prisma'
 
@@ -12,8 +13,11 @@ export const getSummaryTransactionType = async ({
   type,
   month,
 }: SummaryTransactionTypeParams) => {
+  const { userId } = getUser()
+
   const summaryResult = await db.transaction.aggregate({
     where: {
+      userId,
       type,
       date: {
         gte: new Date(`2024-${month}-01`),

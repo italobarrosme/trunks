@@ -1,3 +1,5 @@
+import { getUser } from '@/modules/auth/services'
+import { revalidatePath } from 'next/cache'
 import { db } from 'prisma/prisma'
 
 type GetTransactionParams = {
@@ -5,8 +7,13 @@ type GetTransactionParams = {
 }
 
 export const getTransactions = async ({ quantity }: GetTransactionParams) => {
+  const { userId } = getUser()
+
   try {
     const transactions = await db.transaction.findMany({
+      where: {
+        userId,
+      },
       take: quantity,
       orderBy: { date: 'desc' },
     })
@@ -19,5 +26,7 @@ export const getTransactions = async ({ quantity }: GetTransactionParams) => {
   } catch (error) {
     console.error('Error fetching transactions:', error)
     throw error
+  } finally {
+    revalidatePath('/transactions')
   }
 }

@@ -1,15 +1,15 @@
 'use server'
 
 import { db } from 'prisma/prisma'
-import { auth } from '@clerk/nextjs/server'
 
 import { revalidatePath } from 'next/cache'
 import { DeleteTransactionFormSchema } from '../forms/DeleteTransactionForm/schemas/DeleteTransactionFormSchema'
+import { getUser } from '@/modules/auth/services'
 
 export const deleteTransaction = async (
   params: DeleteTransactionFormSchema
 ) => {
-  const { userId } = await auth()
+  const { userId } = getUser()
 
   if (!userId) {
     throw new Error('Usuário não autenticado')
@@ -18,6 +18,7 @@ export const deleteTransaction = async (
   try {
     const response = await db.transaction.delete({
       where: {
+        userId,
         id: params.id,
       },
     })

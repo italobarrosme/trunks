@@ -2,14 +2,14 @@
 
 import { TransactionCategory, TransactionType } from '@prisma/client'
 import { db } from 'prisma/prisma'
-import { auth } from '@clerk/nextjs/server'
 import { getSummaryTransactionType } from './getSummaryTransactionType'
+import { getUser } from '@/modules/auth/services'
 
 export const getSummaryTransactionCategories = async (
   month: string,
   type: TransactionType
 ) => {
-  const { userId } = await auth()
+  const { userId } = getUser()
   if (!userId) {
     throw new Error('Unauthorized')
   }

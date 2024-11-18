@@ -1,14 +1,14 @@
 'use server'
 
 import { db } from 'prisma/prisma'
-import { auth } from '@clerk/nextjs/server'
 import { formatCurrencyStrigToDecimal } from '../functions'
 import { HandleTransactionFormSchema } from '../forms/HandleTransactionForm/schemas/HandleTransactionFormSchema'
 import { revalidatePath } from 'next/cache'
 import { parse } from 'date-fns'
+import { getUser } from '@/modules/auth/services'
 
 export const putTransaction = async (params: HandleTransactionFormSchema) => {
-  const { userId } = await auth()
+  const { userId } = getUser()
 
   if (!userId) {
     throw new Error('Usuário não autenticado')
@@ -25,6 +25,7 @@ export const putTransaction = async (params: HandleTransactionFormSchema) => {
     try {
       const response = await db.transaction.update({
         where: {
+          userId,
           id: params.id,
         },
         data: {
