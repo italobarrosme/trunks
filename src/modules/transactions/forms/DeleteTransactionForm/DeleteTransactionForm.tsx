@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { deleteTransaction } from '../../services/deleteTransaction'
+import { deleteTransaction } from '../../actions/deleteTransaction'
 import {
   Button,
   SidePanel,

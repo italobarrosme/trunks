@@ -1,8 +1,8 @@
 import { setIconTransactionType } from '@/modules/transactions/functions/setIconTransactionType'
-import { getTransactions } from '@/modules/transactions/services'
+import { getTransactions } from '@/modules/transactions/actions'
 import { TransactionType } from '@prisma/client'
 
-export const LastTransactionsAction = async () => {
+export const getLastTransactions = async () => {
   const response = await getTransactions({ quantity: 10 })
 
   const transactions = response.map((transaction) => ({

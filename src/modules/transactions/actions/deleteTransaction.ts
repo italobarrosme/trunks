@@ -4,7 +4,7 @@ import { db } from 'prisma/prisma'
 
 import { revalidatePath } from 'next/cache'
 import { DeleteTransactionFormSchema } from '../forms/DeleteTransactionForm/schemas/DeleteTransactionFormSchema'
-import { getUser } from '@/modules/auth/services'
+import { getUser } from '@/modules/auth/actions'
 
 export const deleteTransaction = async (
   params: DeleteTransactionFormSchema

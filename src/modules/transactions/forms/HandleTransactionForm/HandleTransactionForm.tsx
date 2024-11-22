@@ -29,8 +29,9 @@ import {
   TRANSACTION_CATEGORY_TRANSLATION,
   TRANSACTION_TYPE_TRANSLATION,
 } from '../../constants'
-import { putTransaction } from '../../services/putTransaction'
+import { putTransaction } from '../../actions/putTransaction'
 import { useState } from 'react'
+import { add } from 'date-fns'
 
 type HandleTransactionFormProps = {
   edit?: boolean
@@ -60,7 +61,7 @@ export const HandleTransactionForm = ({
       category: defaultValues?.category || TransactionCategory.FOOD,
       paymentMethod:
         defaultValues?.paymentMethod || TransactionPaymentMethod.CREDIT_CARD,
-      date: defaultValues?.date || new Date().toISOString(),
+      date: defaultValues?.date || add(new Date(), { months: 1 }).toString(),
       description: defaultValues?.description,
     },
   })
@@ -94,19 +95,9 @@ export const HandleTransactionForm = ({
   return (
     <TableControllerPanel trigger={trigger}>
       <div className="flex flex-row">
-        <div className="flex w-1/2 flex-col justify-center gap-6 px-6">
-          <Text variant="3xl/semibold" tag="h2" className="text-neutral-white">
-            Formulário para {edit ? 'Edição' : 'Criação'} de Transações
-          </Text>
-          <Text className="text-neutral-white">
-            Neste formulário, você pode cadastrar transações de despesas e
-            receitas. Essas transações serão utilizadas para gerar relatórios
-            detalhados de gastos e receitas.
-          </Text>
-        </div>
         <form
           onSubmit={handleSubmit((data) => onSubmit(data))}
-          className="flex w-1/2 flex-col justify-center gap-4 px-6"
+          className="flex w-full flex-col justify-center gap-4 px-6"
         >
           <InputText
             label="Nome"
@@ -120,10 +111,6 @@ export const HandleTransactionForm = ({
             className="text-sm"
             currency={'BRL'}
             {...register('amount')}
-          />
-          <InputArea
-            label="Descrição (Opcional)"
-            {...register('description')}
           />
 
           <fieldset className="relative">
@@ -180,6 +167,10 @@ export const HandleTransactionForm = ({
               onValueChange={(value) => {
                 setValue('paymentMethod', value as TransactionPaymentMethod)
               }}
+            />
+            <InputArea
+              label="Descrição (Opcional)"
+              {...register('description')}
             />
           </fieldset>
 

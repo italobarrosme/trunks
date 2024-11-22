@@ -3,7 +3,7 @@
 import { TransactionCategory, TransactionType } from '@prisma/client'
 import { db } from 'prisma/prisma'
 import { getSummaryTransactionType } from './getSummaryTransactionType'
-import { getUser } from '@/modules/auth/services'
+import { getUser } from '@/modules/auth/actions'
 
 export const getSummaryTransactionCategories = async (
   month: string,

@@ -9,7 +9,7 @@ import {
 } from '@/modules/dashboard/template'
 import { Card } from '@developerskyi/react-components'
 import { LastTransactions } from '@/modules/dashboard/components/LastTransactions'
-import { LastTransactionsAction } from '@/modules/dashboard/actions'
+import { getLastTransactions } from '@/modules/dashboard/actions'
 
 export default async function DashboardPage({
   searchParams,
@@ -21,7 +21,7 @@ export default async function DashboardPage({
   }
   const month = params.get('month') as string
 
-  const transactions = await LastTransactionsAction()
+  const transactions = await getLastTransactions()
 
   return (
     <>

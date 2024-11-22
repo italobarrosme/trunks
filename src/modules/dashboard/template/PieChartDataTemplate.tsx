@@ -4,7 +4,7 @@ import { BoxSummaryValue } from '../components/BoxSummaryValue'
 import { Icon } from '@iconify/react'
 import { Card, Text } from '@developerskyi/react-components'
 import { cn } from '@/utils'
-import { SummaryDataAction } from '../actions'
+import { getSummaryData } from '../actions'
 
 type PieChartDataFormProps = {
   className?: string
@@ -16,7 +16,7 @@ export const PieChartDataTemplate = async ({
   month,
 }: PieChartDataFormProps) => {
   const { summaryIncomes, summaryExpenses, summaryInvested } =
-    await SummaryDataAction(month)
+    await getSummaryData(month)
 
   const summaryTotal = summaryIncomes + summaryExpenses + summaryInvested
 

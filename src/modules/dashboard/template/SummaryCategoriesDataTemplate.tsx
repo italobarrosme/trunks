@@ -1,6 +1,6 @@
 import { TransactionType } from '@prisma/client'
 import { LineSummaryValue } from '../components/LineSummaryValue'
-import { getSummaryTransactionCategories } from '../services/getSummaryTransactionCategories'
+import { getSummaryTransactionCategories } from '../actions/getSummaryTransactionCategories'
 import { Card, Divider, Text } from '@developerskyi/react-components'
 import { cn } from '@/utils'
 import { formatEnumText } from '@/modules/transactions/functions'

@@ -1,6 +1,6 @@
 'use server'
 
-import { getUser } from '@/modules/auth/services'
+import { getUser } from '@/modules/auth/actions'
 import { TransactionType } from '@prisma/client'
 import { db } from 'prisma/prisma'
 

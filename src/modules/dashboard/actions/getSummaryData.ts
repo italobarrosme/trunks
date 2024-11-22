@@ -2,9 +2,9 @@ import { TransactionType } from '@prisma/client'
 import {
   getSummaryBalance,
   getSummaryTransactionType,
-} from '../services/getSummaryTransactionType'
+} from './getSummaryTransactionType'
 
-export const SummaryDataAction = async (month: string) => {
+export const getSummaryData = async (month: string) => {
   const summaryBalance = await getSummaryBalance(month)
 
   const summaryIncomes = await getSummaryTransactionType({

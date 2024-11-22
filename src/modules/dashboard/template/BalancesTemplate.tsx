@@ -5,7 +5,7 @@ import { Button } from '@developerskyi/react-components'
 import { Icon } from '@iconify/react'
 import { setIconTransactionType } from '@/modules/transactions/functions/setIconTransactionType'
 import { TransactionType } from '@prisma/client'
-import { SummaryDataAction } from '../actions'
+import { getSummaryData } from '../actions'
 
 type BalancesTemplateProps = {
   className?: string
@@ -17,7 +17,7 @@ export const BalancesTemplate = async ({
   month,
 }: BalancesTemplateProps) => {
   const { summaryBalance, summaryExpenses, summaryIncomes, summaryInvested } =
-    await SummaryDataAction(month)
+    await getSummaryData(month)
 
   return (
     <div className={cn('grid grid-cols-3 gap-4 max-h-80', className)}>

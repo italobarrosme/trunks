@@ -1,6 +1,7 @@
-import { getUser } from '@/modules/auth/services'
+import { getUser } from '@/modules/auth/actions'
 import { revalidatePath } from 'next/cache'
 import { db } from 'prisma/prisma'
+// import { Transaction } from '@prisma/client'
 
 type GetTransactionParams = {
   quantity: number

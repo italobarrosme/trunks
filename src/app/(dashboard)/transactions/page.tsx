@@ -1,5 +1,5 @@
 import { TableTransactions } from '@/modules/transactions/components/TableTransactions'
-import { getTransactions } from '@/modules/transactions/services'
+import { getTransactions } from '@/modules/transactions/actions'
 
 export default async function TransactionsPage() {
   const transactionsList = await getTransactions({ quantity: 100 })

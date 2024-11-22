@@ -13,7 +13,7 @@ export const TableControllerPanel = ({
 }: TableControllerPanelProps) => {
   return (
     <div className="flex items-center justify-between">
-      <SidePanel orientation={'right'} trigger={trigger}>
+      <SidePanel orientation={'right'} trigger={trigger} className="w-2/6">
         <div className="h-screen bg-neutral-dark px-6 py-4 text-neutral-white">
           {children}
         </div>

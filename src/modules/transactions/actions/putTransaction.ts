@@ -5,7 +5,7 @@ import { formatCurrencyStrigToDecimal } from '../functions'
 import { HandleTransactionFormSchema } from '../forms/HandleTransactionForm/schemas/HandleTransactionFormSchema'
 import { revalidatePath } from 'next/cache'
 import { parse } from 'date-fns'
-import { getUser } from '@/modules/auth/services'
+import { getUser } from '@/modules/auth/actions'
 
 export const putTransaction = async (params: HandleTransactionFormSchema) => {
   const { userId } = getUser()
