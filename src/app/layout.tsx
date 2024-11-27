@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const metadata: Metadata = {
-  title: 'sky.finance - Site',
+  title: 'skyi.finance - Site',
   description: 'Sistema finaceiro',
 }
 

@@ -10,11 +10,13 @@ export type BoxSummaryValueProps = {
   icon: React.ReactNode
   trigger?: React.ReactNode
   className?: string
+  flagPercent?: boolean
 }
 
 export const BoxSummaryValue = ({
   valueMoney,
   valuePercent,
+  flagPercent = false,
   title,
   icon,
   trigger,
@@ -27,13 +29,15 @@ export const BoxSummaryValue = ({
           <div className="mr-3 p-2">{icon}</div>
           <div>
             <p className="text-sm text-neutral-light">{title}</p>
-            <p className="text-2xl font-bold">
+            <p className="text-xl font-bold text-inherit">
               {Number(valueMoney) >= 0
                 ? formatCurrency(Number(valueMoney))
-                : ''}
+                : !flagPercent
+                  ? `-${formatCurrency(Number(valueMoney) * -1)}`
+                  : ''}
             </p>
             <p className="text-sm text-neutral-white">
-              {valuePercent && `${valuePercent}%`}
+              {flagPercent && `${valuePercent}%`}
             </p>
           </div>
         </div>

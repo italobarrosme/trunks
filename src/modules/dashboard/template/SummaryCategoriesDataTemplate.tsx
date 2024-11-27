@@ -21,9 +21,7 @@ export const SummaryCategoriesDataTemplate = async ({
   )
 
   return (
-    <Card
-      className={cn('flex flex-col gap-4 min-h-[516px] h-[516px]', className)}
-    >
+    <Card className={cn('flex flex-col gap-4', className)}>
       <Text>Gastos por categoria</Text>
       <Divider className="bg-neutral-shadow" />
       {/* !TODO ADD TABS */}

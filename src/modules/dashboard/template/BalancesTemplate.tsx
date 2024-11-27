@@ -20,7 +20,7 @@ export const BalancesTemplate = async ({
     await getSummaryData(month)
 
   return (
-    <div className={cn('grid grid-cols-3 gap-4 max-h-80', className)}>
+    <div className={cn('grid grid-cols-3 max-h-80', className)}>
       <BoxSummaryValue
         title="Saldo"
         valueMoney={summaryBalance}
@@ -28,10 +28,16 @@ export const BalancesTemplate = async ({
           <Icon
             icon={'lucide:wallet'}
             width="36"
-            className="rounded-md bg-neutral-shadow p-2 text-neutral-white"
+            className={cn('rounded-md bg-neutral-shadow p-2', {
+              'text-feedback-success': summaryBalance >= 0,
+              'text-feedback-error': summaryBalance < 0,
+            })}
           />
         }
-        className="col-span-3 text-neutral-white shadow-none"
+        className={cn('col-span-3 shadow-none', {
+          'text-feedback-success': summaryBalance >= 0,
+          'text-feedback-error': summaryBalance < 0,
+        })}
         trigger={
           <HandleTransactionForm
             trigger={

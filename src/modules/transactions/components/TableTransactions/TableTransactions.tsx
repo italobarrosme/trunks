@@ -92,7 +92,7 @@ export const TableTransactions = ({ transactions }: TableTransactionsProps) => {
                 <TableCell className="flex">
                   <HandleTransactionForm
                     edit
-                    defaultValues={transaction}
+                    editValues={transaction}
                     trigger={
                       <Button
                         variant="fit/ghost"

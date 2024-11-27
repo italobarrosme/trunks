@@ -1,0 +1,1 @@
+export { HandleAiReportForm } from './HandleAiReportForm'

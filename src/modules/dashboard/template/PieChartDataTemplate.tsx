@@ -58,10 +58,7 @@ export const PieChartDataTemplate = async ({
   if (verifyData) {
     return (
       <Card
-        className={cn(
-          'min-h-[516px] flex justify-center items-center',
-          className
-        )}
+        className={cn('max-h-80 flex justify-center items-center', className)}
       >
         <Text
           variant="lg/semibold"
@@ -75,15 +72,16 @@ export const PieChartDataTemplate = async ({
 
   return (
     <PieCharts
-      title={`Gráfico de alocação de recursos no mês ${month}`}
+      title={`Gráfico de alocação de recursos de faturamento no mês ${month}`}
       description={'Recursos por tipo de transação'}
-      className={className}
+      className={cn(className)}
       chartData={chartData}
       chartConfig={chartConfig}
     >
       <BoxSummaryValue
         title="Investido"
         valuePercent={chartData[2].amount}
+        flagPercent
         icon={
           <Icon
             icon={'lucide:chart-line'}
@@ -96,6 +94,7 @@ export const PieChartDataTemplate = async ({
       <BoxSummaryValue
         title="Receita"
         valuePercent={chartData[1].amount}
+        flagPercent
         icon={
           <Icon
             icon={'lucide:trending-up'}
@@ -108,6 +107,7 @@ export const PieChartDataTemplate = async ({
       <BoxSummaryValue
         title="Despesas"
         valuePercent={chartData[0].amount}
+        flagPercent
         icon={
           <Icon
             icon={'lucide:trending-down'}

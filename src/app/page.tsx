@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation'
 
 const AuthCardData = {
   title: 'Bem vindo',
-  description: `A Sky.finance é uma plataforma de gestão financeira que utiliza IA para monitorar suas movimentações, 
+  description: `A Skyi.finance é uma plataforma de gestão financeira que utiliza IA para monitorar suas movimentações, 
   e oferecer insights personalizados, facilitando o controle do seu orçamento.`,
   linkLogo: '/logo_white.png',
 }
