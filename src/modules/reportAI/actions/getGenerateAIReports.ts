@@ -17,10 +17,9 @@ export const getGenerateAIReports = async (): Promise<{ message: string }> => {
   const transactions = await db.transaction.findMany({
     where: {
       userId,
-      date: {
-        gte: new Date(new Date().setDate(new Date().getDate() - 30)),
-      },
     },
+    take: 20,
+    orderBy: { date: 'desc' },
   })
 
   if (!transactions.length) {
@@ -29,7 +28,7 @@ export const getGenerateAIReports = async (): Promise<{ message: string }> => {
     }
   }
 
-  const content = `Generate a report with insights about my finances, including tips and guidance on how to improve my financial life. The transactions are divided by semicolons. The structure of each transaction is {DATE}--{TYPE}--{AMOUNT}--{CATEGORY}. They are as follows:
+  const content = `Generate a report finance with insights about my last 20 transactions, including tips and guidance on how to improve my financial life. The transactions are divided by semicolons. The structure of each transaction is {DATE}--{TYPE}--{AMOUNT}--{CATEGORY}. They are as follows:
   
   ${transactions
     .map(

@@ -8,7 +8,6 @@ export type BoxSummaryValueProps = {
   valuePercent?: number
   title: string
   icon: React.ReactNode
-  trigger?: React.ReactNode
   className?: string
   flagPercent?: boolean
 }
@@ -19,7 +18,6 @@ export const BoxSummaryValue = ({
   flagPercent = false,
   title,
   icon,
-  trigger,
   className,
 }: BoxSummaryValueProps) => {
   return (
@@ -41,7 +39,6 @@ export const BoxSummaryValue = ({
             </p>
           </div>
         </div>
-        {trigger}
       </div>
     </Card>
   )

@@ -32,7 +32,7 @@ export default async function DashboardPage({
           <div className="grid w-full grid-cols-3 gap-4">
             <BalancesTemplate
               month={month}
-              className="col-span-2 max-h-svh rounded-md border-none bg-neutral-dark p-4 text-neutral-white"
+              className="col-span-2 max-h-svh rounded-md border-none bg-neutral-dark text-neutral-white"
             />
             <ReportAiTemplate className="col-span-1 max-h-svh border-none bg-neutral-dark p-4 text-neutral-white" />
             <PieChartDataTemplate

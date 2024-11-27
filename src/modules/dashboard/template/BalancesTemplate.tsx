@@ -20,34 +20,34 @@ export const BalancesTemplate = async ({
     await getSummaryData(month)
 
   return (
-    <div className={cn('grid grid-cols-3 max-h-80', className)}>
-      <BoxSummaryValue
-        title="Saldo"
-        valueMoney={summaryBalance}
-        icon={
-          <Icon
-            icon={'lucide:wallet'}
-            width="36"
-            className={cn('rounded-md bg-neutral-shadow p-2', {
-              'text-feedback-success': summaryBalance >= 0,
-              'text-feedback-error': summaryBalance < 0,
-            })}
-          />
-        }
-        className={cn('col-span-3 shadow-none', {
-          'text-feedback-success': summaryBalance >= 0,
-          'text-feedback-error': summaryBalance < 0,
-        })}
-        trigger={
-          <HandleTransactionForm
-            trigger={
-              <Button variant="fit/regular">
-                <Icon icon={'lucide:plus'} /> Adicionar Transação
-              </Button>
-            }
-          />
-        }
-      />
+    <div className={cn('grid grid-cols-3 max-h-80 p-4', className)}>
+      <div className="col-span-3 flex items-start justify-between">
+        <BoxSummaryValue
+          title="Saldo"
+          valueMoney={summaryBalance}
+          icon={
+            <Icon
+              icon={'lucide:wallet'}
+              width="36"
+              className={cn('rounded-md bg-neutral-shadow p-2', {
+                'text-feedback-success': summaryBalance >= 0,
+                'text-feedback-error': summaryBalance < 0,
+              })}
+            />
+          }
+          className={cn('shadow-none', {
+            'text-feedback-success': summaryBalance >= 0,
+            'text-feedback-error': summaryBalance < 0,
+          })}
+        />
+        <HandleTransactionForm
+          trigger={
+            <Button variant="fit/regular">
+              <Icon icon={'lucide:plus'} /> Adicionar Transação
+            </Button>
+          }
+        />
+      </div>
       <BoxSummaryValue
         title="Investido"
         valueMoney={summaryInvested}
@@ -58,7 +58,7 @@ export const BalancesTemplate = async ({
             className="rounded-md bg-feedback-info/10 p-2 text-feedback-info"
           />
         }
-        className="text-neutral-white shadow-none"
+        className="col-span-1 text-neutral-white shadow-none"
       />
       <BoxSummaryValue
         title="Receita"
@@ -70,7 +70,7 @@ export const BalancesTemplate = async ({
             className="rounded-md bg-feedback-success/10 p-2 text-feedback-success"
           />
         }
-        className=" text-neutral-white shadow-none"
+        className="col-span-1 text-neutral-white shadow-none"
       />
       <BoxSummaryValue
         title="Despesas"
@@ -82,7 +82,7 @@ export const BalancesTemplate = async ({
             className="rounded-md bg-feedback-error/10 p-2 text-feedback-error"
           />
         }
-        className=" text-neutral-white shadow-none"
+        className="col-span-1 text-neutral-white shadow-none"
       />
     </div>
   )
