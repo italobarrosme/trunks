@@ -22,7 +22,7 @@ export const getTransactions = async ({ quantity }: GetTransactionParams) => {
     return transactions.map((transaction) => ({
       ...transaction,
       amount: Number(transaction.amount),
-      date: transaction.date,
+      date: transaction.date.toString(),
     }))
   } catch (error) {
     console.error('Error fetching transactions:', error)

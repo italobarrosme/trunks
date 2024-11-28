@@ -26,6 +26,7 @@ export const HandleAiReportForm = () => {
       console.log(error)
     } finally {
       setLoading(false)
+      verifyTimeEvent(userId)
     }
   }
 

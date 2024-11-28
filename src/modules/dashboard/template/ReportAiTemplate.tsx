@@ -38,7 +38,7 @@ export const ReportAiTemplate = ({ className }: ReportAiTemplateProps) => {
           </Text>
         </div>
       ) : (
-        <div className="flex max-h-96 flex-col justify-center gap-4 overflow-y-auto px-6">
+        <div className="flex h-full flex-col justify-center gap-4 overflow-y-auto px-6">
           <Text
             variant="lg/semibold"
             className="bg-feedback-warning/55 p-2 text-center"

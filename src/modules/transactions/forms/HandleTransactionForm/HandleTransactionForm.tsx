@@ -93,6 +93,8 @@ export const HandleTransactionForm = ({
     }
   }
 
+  console.log(editValues?.date, 'editValues?.date!!!!!!!!!')
+
   return (
     <TableControllerPanel trigger={trigger}>
       <div className="flex flex-row">
@@ -124,8 +126,9 @@ export const HandleTransactionForm = ({
               className="text-sm"
               {...register('date')}
               defaultValue={
-                editValues?.date ||
-                format(add(new Date(), { months: 1 }), 'dd/MM/yyyy')
+                editValues?.date
+                  ? format(editValues.date, 'dd/MM/yyyy')
+                  : format(add(new Date(), { months: 1 }), 'dd/MM/yyyy')
               }
               emitValue={(value) => {
                 setValue('date', value as string)
