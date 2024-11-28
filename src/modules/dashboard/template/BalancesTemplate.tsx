@@ -20,7 +20,7 @@ export const BalancesTemplate = async ({
     await getSummaryData(month)
 
   return (
-    <div className={cn('grid grid-cols-3 max-h-80 p-4', className)}>
+    <div className={cn('grid grid-cols-3 p-4', className)}>
       <div className="col-span-3 flex items-start justify-between">
         <BoxSummaryValue
           title="Saldo"

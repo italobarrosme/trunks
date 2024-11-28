@@ -14,7 +14,7 @@ export const ReportAiTemplate = ({ className }: ReportAiTemplateProps) => {
 
   return (
     <Card className={cn('flex flex-col gap-4', className)}>
-      <div className="flex gap-2">
+      <div className="flex justify-between gap-2">
         <Text>Relatório feito pelo especialista IA</Text>
         <HandleAiReportForm />
       </div>
@@ -38,7 +38,7 @@ export const ReportAiTemplate = ({ className }: ReportAiTemplateProps) => {
           </Text>
         </div>
       ) : (
-        <div className="flex h-80 flex-col justify-center gap-4 overflow-y-auto px-6">
+        <div className="flex max-h-96 flex-col justify-center gap-4 overflow-y-auto px-6">
           <Text
             variant="lg/semibold"
             className="bg-feedback-warning/55 p-2 text-center"

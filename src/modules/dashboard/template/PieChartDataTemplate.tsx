@@ -2,7 +2,7 @@ import { ChartConfig } from '@/modules/shared/components/Charts'
 import { PieCharts } from '../components/PieCharts'
 import { BoxSummaryValue } from '../components/BoxSummaryValue'
 import { Icon } from '@iconify/react'
-import { Card, Text } from '@developerskyi/react-components'
+import { Card, Divider, Text } from '@developerskyi/react-components'
 import { cn } from '@/utils'
 import { getSummaryData } from '../actions'
 
@@ -55,68 +55,69 @@ export const PieChartDataTemplate = async ({
 
   const verifyData = chartData.every((item) => item.amount === 0)
 
-  if (verifyData) {
-    return (
-      <Card
-        className={cn('max-h-80 flex justify-center items-center', className)}
-      >
-        <Text
-          variant="lg/semibold"
-          className="bg-feedback-warning/55 p-2 text-center"
-        >
-          Sem dados para exibir
-        </Text>
-      </Card>
-    )
-  }
-
   return (
-    <PieCharts
-      title={`Gráfico de alocação de recursos de faturamento no mês ${month}`}
-      description={'Recursos por tipo de transação'}
-      className={cn(className)}
-      chartData={chartData}
-      chartConfig={chartConfig}
-    >
-      <BoxSummaryValue
-        title="Investido"
-        valuePercent={chartData[2].amount}
-        flagPercent
-        icon={
-          <Icon
-            icon={'lucide:chart-line'}
-            width="36"
-            className="rounded-md bg-feedback-info/10 p-2 text-feedback-info"
+    <Card className={cn('flex flex-col gap-4', className)}>
+      <Text>Grafico </Text>
+      <Divider className="bg-neutral-shadow" />
+
+      {!verifyData ? (
+        <PieCharts
+          title={`Gráfico de alocação de recursos de faturamento no mês ${month}`}
+          description={'Recursos por tipo de transação'}
+          className={cn(className)}
+          chartData={chartData}
+          chartConfig={chartConfig}
+        >
+          <BoxSummaryValue
+            title="Investido"
+            valuePercent={chartData[2].amount}
+            flagPercent
+            icon={
+              <Icon
+                icon={'lucide:chart-line'}
+                width="36"
+                className="rounded-md bg-feedback-info/10 p-2 text-feedback-info"
+              />
+            }
+            className=" w-fit text-neutral-white shadow-inherit"
           />
-        }
-        className=" w-fit text-neutral-white shadow-inherit"
-      />
-      <BoxSummaryValue
-        title="Receita"
-        valuePercent={chartData[1].amount}
-        flagPercent
-        icon={
-          <Icon
-            icon={'lucide:trending-up'}
-            width="36"
-            className="rounded-md bg-feedback-success/10 p-2 text-feedback-success"
+          <BoxSummaryValue
+            title="Receita"
+            valuePercent={chartData[1].amount}
+            flagPercent
+            icon={
+              <Icon
+                icon={'lucide:trending-up'}
+                width="36"
+                className="rounded-md bg-feedback-success/10 p-2 text-feedback-success"
+              />
+            }
+            className=" w-fit text-neutral-white shadow-inherit"
           />
-        }
-        className=" w-fit text-neutral-white shadow-inherit"
-      />
-      <BoxSummaryValue
-        title="Despesas"
-        valuePercent={chartData[0].amount}
-        flagPercent
-        icon={
-          <Icon
-            icon={'lucide:trending-down'}
-            width="36"
-            className="rounded-md bg-feedback-error/10 p-2 text-feedback-error"
+          <BoxSummaryValue
+            title="Despesas"
+            valuePercent={chartData[0].amount}
+            flagPercent
+            icon={
+              <Icon
+                icon={'lucide:trending-down'}
+                width="36"
+                className="rounded-md bg-feedback-error/10 p-2 text-feedback-error"
+              />
+            }
+            className=" w-fit text-neutral-white shadow-inherit"
           />
-        }
-        className=" w-fit text-neutral-white shadow-inherit"
-      />
-    </PieCharts>
+        </PieCharts>
+      ) : (
+        <div className="flex h-96 flex-col items-center justify-center gap-4 overflow-y-auto px-6">
+          <Text
+            variant="lg/semibold"
+            className="bg-feedback-warning/55 p-2 text-center"
+          >
+            Sem dados para exibir
+          </Text>
+        </div>
+      )}
+    </Card>
   )
 }

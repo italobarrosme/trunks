@@ -31,13 +31,16 @@ enum TransactionType {
 }
 
 enum TransactionCategory {
+  SALARY
+  CRYPTO
+  FREELANCE
+  BONUS
   HOUSING
   FOOD
   TRANSPORT
   SHOPPING
   ENTERTAINMENT
   UTILITY
-  SALARY
   INSURANCE
   TAXES
   HEALTH

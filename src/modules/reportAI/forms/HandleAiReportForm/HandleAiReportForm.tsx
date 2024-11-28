@@ -2,13 +2,17 @@
 
 import { Button } from '@developerskyi/react-components'
 import { Icon } from '@iconify/react'
-import { getGenerateAIReports } from '../../actions'
+import { getGenerateAIReports, getTimeoutEventReport } from '../../actions'
 import { useReportAiStore } from '../../store'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useAuth } from '@clerk/nextjs'
 
 export const HandleAiReportForm = () => {
+  const { userId } = useAuth()
+
   const { setMessage } = useReportAiStore()
   const [loading, setLoading] = useState(false)
+  const [isBlockedButton, setIsBlockedButton] = useState(false)
 
   const handleAiReport = async () => {
     setLoading(true)
@@ -25,9 +29,23 @@ export const HandleAiReportForm = () => {
     }
   }
 
+  const verifyTimeEvent = async (userId: any) => {
+    const isBlocked = await getTimeoutEventReport({ userId })
+
+    setIsBlockedButton(!isBlocked)
+  }
+
+  useEffect(() => {
+    verifyTimeEvent(userId)
+  }, [userId])
+
   return (
     <>
-      <Button variant="fit/regular" onClick={handleAiReport}>
+      <Button
+        variant="fit/regular"
+        onClick={handleAiReport}
+        disabled={!isBlockedButton}
+      >
         {loading ? (
           <>
             <Icon

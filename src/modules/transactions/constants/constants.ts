@@ -22,13 +22,16 @@ export enum PAYMENT_METHOD_TRANSLATION {
 }
 
 export enum TRANSACTION_CATEGORY_TRANSLATION {
+  SALARY = 'Salário',
+  CRYPTO = 'Criptomoeda',
+  FREELANCE = 'Freelance',
+  BONUS = 'Bônus',
   HOUSING = 'Moradia',
   FOOD = 'Alimentação',
   TRANSPORT = 'Transporte',
   SHOPPING = 'Compras',
   ENTERTAINMENT = 'Entretenimento',
   UTILITY = 'Utilidades',
-  SALARY = 'Salário',
   INSURANCE = 'Seguro',
   TAXES = 'Impostos',
   HEALTH = 'Saúde',
