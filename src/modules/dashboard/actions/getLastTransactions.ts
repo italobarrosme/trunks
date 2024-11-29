@@ -1,17 +1,31 @@
 import { setIconTransactionType } from '@/modules/transactions/functions/setIconTransactionType'
-import { getTransactions } from '@/modules/transactions/actions'
 import { TransactionType } from '@prisma/client'
+import { getUser } from '@/modules/auth/actions'
+import { db } from 'prisma/prisma'
 
 export const getLastTransactions = async () => {
-  const response = await getTransactions({ quantity: 10 })
+  const { userId } = getUser()
 
-  const transactions = response.map((transaction) => ({
-    valueMoney: transaction.amount,
-    type: transaction.type as TransactionType,
-    name: transaction.name,
-    datePayment: transaction.datePayment,
-    icon: setIconTransactionType(transaction.type),
-  }))
+  try {
+    const transactions = await db.transaction.findMany({
+      where: {
+        userId,
+      },
+      take: 20,
+      orderBy: { datePayment: 'desc' },
+    })
 
-  return transactions
+    return transactions.map((transaction) => ({
+      ...transaction,
+      amount: Number(transaction.amount),
+      datePayment: transaction.datePayment.toString(),
+      valueMoney: Number(transaction.amount),
+      type: transaction.type as TransactionType,
+      name: transaction.name,
+      icon: setIconTransactionType(transaction.type),
+    }))
+  } catch (error) {
+    console.error('Error fetching transactions:', error)
+    throw error
+  }
 }

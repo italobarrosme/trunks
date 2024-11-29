@@ -2,20 +2,18 @@ import { getUser } from '@/modules/auth/actions'
 import { revalidatePath } from 'next/cache'
 import { db } from 'prisma/prisma'
 
-type GetTransactionParams = {
-  quantity: number
-}
-
-export const getTransactions = async ({ quantity }: GetTransactionParams) => {
+export const getOverduePayments = async () => {
   const { userId } = getUser()
 
   try {
     const transactions = await db.transaction.findMany({
       where: {
         userId,
+        datePayment: {
+          lte: new Date(),
+        },
       },
-      take: quantity,
-      orderBy: { datePayment: 'desc' },
+      orderBy: { datePayment: 'asc' },
     })
 
     return transactions.map((transaction) => ({
@@ -24,9 +22,9 @@ export const getTransactions = async ({ quantity }: GetTransactionParams) => {
       datePayment: transaction.datePayment.toString(),
     }))
   } catch (error) {
-    console.error('Error fetching transactions:', error)
+    console.error('Error fetching overdue payments:', error)
     throw error
   } finally {
-    revalidatePath('/transactions')
+    revalidatePath('/dashboard')
   }
 }

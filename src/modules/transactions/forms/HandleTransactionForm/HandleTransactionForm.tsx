@@ -118,7 +118,7 @@ export const HandleTransactionForm = ({
 
           <fieldset className="relative">
             <InputDatePicker
-              label="Data"
+              label="Data do pagamento"
               dark
               error={errors.datePayment?.message}
               className="text-sm"
