@@ -19,7 +19,7 @@ export const getSummaryTransactionType = async ({
     where: {
       userId,
       type,
-      date: {
+      datePayment: {
         gte: new Date(`2024-${month}-01`),
         lt: new Date(`2024-${month}-31`),
       },

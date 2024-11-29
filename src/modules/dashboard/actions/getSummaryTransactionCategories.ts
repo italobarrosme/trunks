@@ -16,7 +16,7 @@ export const getSummaryTransactionCategories = async (
 
   const where = {
     userId,
-    date: {
+    datePayment: {
       gte: new Date(`2024-${month}-01`),
       lt: new Date(`2024-${month}-31`),
     },

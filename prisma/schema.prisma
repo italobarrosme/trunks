@@ -15,7 +15,7 @@ model Transaction {
   category          TransactionCategory
   paymentMethod     TransactionPaymentMethod
   description       String?
-  date              DateTime
+  datePayment       DateTime
   createdAt         DateTime                 @default(now())
   updatedAt         DateTime                 @updatedAt
   userId            String
@@ -49,14 +49,14 @@ enum TransactionCategory {
 }
 
 enum TransactionPaymentMethod {
-  CASH
+  PIX
   DEBIT_CARD
   CREDIT_CARD
   BANK_TRANSFER
   BANK_SLIP
-  PIX
   PAYPAL
   BITCOIN
   CRYPTO
+  CASH
   OTHER
 }

@@ -22,7 +22,7 @@ export const getGenerateAIReports = async (): Promise<{
         userId,
       },
       take: 20,
-      orderBy: { date: 'desc' },
+      orderBy: { datePayment: 'desc' },
     })
 
     if (!transactions.length) {
@@ -36,7 +36,7 @@ export const getGenerateAIReports = async (): Promise<{
     ${transactions
       .map(
         (transaction) =>
-          `${formatDate(transaction.date)}--${transaction.type}--${formatCurrency(Number(transaction.amount))}--${transaction.category}`
+          `${formatDate(transaction.datePayment)}--${transaction.type}--${formatCurrency(Number(transaction.amount))}--${transaction.category}`
       )
       .join(';')}
       return the report in a text format in Portuguese.`

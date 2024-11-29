@@ -22,7 +22,7 @@ export const handleTransactionFormSchema = z.object({
   paymentMethod: z.nativeEnum(TransactionPaymentMethod, {
     required_error: 'Selecione o método de pagamento',
   }),
-  date: z.string({
+  datePayment: z.string({
     required_error: 'Selecione a data da transação',
   }),
   description: z.string().optional(),

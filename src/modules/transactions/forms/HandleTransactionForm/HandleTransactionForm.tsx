@@ -60,8 +60,8 @@ export const HandleTransactionForm = ({
       category: editValues?.category || TransactionCategory.FOOD,
       paymentMethod:
         editValues?.paymentMethod || TransactionPaymentMethod.CREDIT_CARD,
-      date:
-        editValues?.date ||
+      datePayment:
+        editValues?.datePayment ||
         format(add(new Date(), { months: 1 }), 'dd/MM/yyyy'),
       description: editValues?.description,
     },
@@ -93,8 +93,6 @@ export const HandleTransactionForm = ({
     }
   }
 
-  console.log(editValues?.date, 'editValues?.date!!!!!!!!!')
-
   return (
     <TableControllerPanel trigger={trigger}>
       <div className="flex flex-row">
@@ -122,16 +120,16 @@ export const HandleTransactionForm = ({
             <InputDatePicker
               label="Data"
               dark
-              error={errors.date?.message}
+              error={errors.datePayment?.message}
               className="text-sm"
-              {...register('date')}
+              {...register('datePayment')}
               defaultValue={
-                editValues?.date
-                  ? format(editValues.date, 'dd/MM/yyyy')
+                editValues?.datePayment
+                  ? format(editValues.datePayment, 'dd/MM/yyyy')
                   : format(add(new Date(), { months: 1 }), 'dd/MM/yyyy')
               }
               emitValue={(value) => {
-                setValue('date', value as string)
+                setValue('datePayment', value as string)
               }}
             />
           </fieldset>

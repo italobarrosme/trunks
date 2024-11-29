@@ -12,7 +12,7 @@ type TransactionItem = {
   valueMoney: number
   type: TransactionType
   name: string
-  date: Date
+  datePayment: Date
   icon?: IconObject
 }
 
@@ -35,7 +35,7 @@ const LastTransactionItem = (transaction: TransactionItem) => {
         <div className="flex h-full flex-col">
           <Text variant="sm/normal">{transaction.name}</Text>
           <Text variant="xs/medium" className="text-neutral-light/40">
-            {formatDate(transaction.date)}
+            {formatDate(transaction.datePayment)}
           </Text>
         </div>
       </div>

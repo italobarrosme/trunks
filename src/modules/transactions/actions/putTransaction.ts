@@ -17,7 +17,7 @@ export const putTransaction = async (params: HandleTransactionFormSchema) => {
   const payload = {
     ...params,
     amount: formatCurrencyStrigToDecimal(params.amount),
-    date: parse(params.date, 'dd/MM/yyyy', new Date()),
+    datePayment: parse(params.datePayment, 'dd/MM/yyyy', new Date()),
     userId,
   }
 
@@ -36,7 +36,7 @@ export const putTransaction = async (params: HandleTransactionFormSchema) => {
       return {
         ...response,
         amount: Number(response.amount),
-        date: response.date.toISOString(),
+        datePayment: response.datePayment.toISOString(),
       }
     } catch (err) {
       return err
@@ -54,7 +54,7 @@ export const putTransaction = async (params: HandleTransactionFormSchema) => {
       return {
         ...response,
         amount: Number(response.amount),
-        date: response.date.toISOString(),
+        datePayment: response.datePayment.toISOString(),
       }
     } catch (err) {
       return err

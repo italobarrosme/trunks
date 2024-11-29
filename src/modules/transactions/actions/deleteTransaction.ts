@@ -26,7 +26,7 @@ export const deleteTransaction = async (
     return {
       ...response,
       amount: Number(response.amount),
-      date: response.date.toISOString(),
+      datePayment: response.datePayment.toISOString(),
     }
   } catch (err) {
     return err

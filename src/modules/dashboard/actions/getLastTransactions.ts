@@ -9,7 +9,7 @@ export const getLastTransactions = async () => {
     valueMoney: transaction.amount,
     type: transaction.type as TransactionType,
     name: transaction.name,
-    date: transaction.date,
+    datePayment: transaction.datePayment,
     icon: setIconTransactionType(transaction.type),
   }))
 
