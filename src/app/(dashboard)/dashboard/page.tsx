@@ -1,7 +1,5 @@
 import { FilterController } from '@/modules/dashboard/components/FilterController'
 import { PageWithSearchParams } from '@/modules/shared/types/types'
-import { redirect } from 'next/navigation'
-import { getMonth } from 'date-fns'
 import {
   PieChartDataTemplate,
   BalancesTemplate,
@@ -12,16 +10,17 @@ import {
 import { getLastTransactions } from '@/modules/dashboard/actions'
 import { Suspense } from 'react'
 import { Skeleton } from '@developerskyi/react-components'
+import { formatSearchParamsDate } from '@/utils/formatSearchParamsDate'
 
 export default async function DashboardPage({
   searchParams,
 }: PageWithSearchParams) {
   const params = new URLSearchParams(searchParams)
 
-  if (!params.has('month')) {
-    redirect(`?month=${getMonth(new Date()) + 2}`)
-  }
+  formatSearchParamsDate(params.toString())
+
   const month = params.get('month') as string
+  const year = params.get('year') as string
 
   const transactions = await getLastTransactions()
 
@@ -41,6 +40,7 @@ export default async function DashboardPage({
             >
               <BalancesTemplate
                 month={month}
+                year={year}
                 className="col-span-4 max-h-96 min-h-96 rounded-md border-none bg-neutral-dark text-neutral-white"
               />
             </Suspense>
@@ -77,6 +77,7 @@ export default async function DashboardPage({
             >
               <PieChartDataTemplate
                 month={month}
+                year={year}
                 className="col-span-7 min-h-96 border-none bg-neutral-dark text-neutral-white"
               />
             </Suspense>
@@ -90,6 +91,7 @@ export default async function DashboardPage({
             >
               <SummaryCategoriesDataTemplate
                 month={month}
+                year={year}
                 className="col-span-2 min-h-96 border-none bg-neutral-dark text-neutral-white"
               />
             </Suspense>

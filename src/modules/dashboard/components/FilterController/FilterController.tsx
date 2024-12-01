@@ -1,6 +1,6 @@
 'use client'
 
-import { monthsOptions } from '@/modules/shared/constants/months'
+import { monthsOptions, yearsOptions } from '@/modules/shared/constants/months'
 import { InputSelect, Text } from '@developerskyi/react-components'
 import { useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
@@ -18,18 +18,33 @@ export const FilterController = () => {
       Number(monthSelected) - 1
     )
 
-    // Verifica se o mês selecionado é o mês anterior
     if (isBefore(selectedMonth, today) && !isSameMonth(selectedMonth, today)) {
       return 'Esse mês já foi faturado'
     }
 
-    // Verifica se o mês selecionado é o mês atual
     if (isSameMonth(selectedMonth, today)) {
       return 'Esse mês está sendo faturado'
     }
 
-    // Se não é anterior nem atual, assume que é o próximo mês
     return 'Esse mês ainda não foi faturado'
+  }
+
+  const labelYearFeedback = (yearSelected: string): string => {
+    const today = new Date()
+    const selectedYear = new Date(Number(yearSelected), today.getMonth())
+
+    if (
+      isBefore(selectedYear, today) &&
+      selectedYear.getFullYear() !== today.getFullYear()
+    ) {
+      return 'Esse ano já foi faturado'
+    }
+
+    if (selectedYear.getFullYear() === today.getFullYear()) {
+      return 'Esse ano está sendo faturado'
+    }
+
+    return 'Esse ano ainda não foi faturado'
   }
 
   const createQueryString = useCallback(
@@ -62,6 +77,18 @@ export const FilterController = () => {
           dark
           onValueChange={(value) => {
             const queryString = createQueryString('month', value)
+            push(`?${queryString}`)
+          }}
+        />
+        <InputSelect
+          label={labelYearFeedback(searchParams.get('year') || '2024')}
+          placeholder="Filtrar por Mês"
+          options={yearsOptions}
+          className="!min-w-64"
+          defaultValue={searchParams.get('year') || '2024'}
+          dark
+          onValueChange={(value) => {
+            const queryString = createQueryString('year', value)
             push(`?${queryString}`)
           }}
         />

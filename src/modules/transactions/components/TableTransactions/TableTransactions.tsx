@@ -23,9 +23,10 @@ import {
 } from '../../functions'
 import { HandleTransactionForm } from '../../forms'
 import { DeleteTransactionForm } from '../../forms/DeleteTransactionForm'
+import { GetTransactionResponse } from '../../actions/getTransactions'
 
 type TableTransactionsProps = {
-  transactions: any
+  transactions: GetTransactionResponse
 }
 
 export const TableTransactions = ({ transactions }: TableTransactionsProps) => {
@@ -85,7 +86,7 @@ export const TableTransactions = ({ transactions }: TableTransactionsProps) => {
                     PAYMENT_METHOD_TRANSLATION
                   )}
                 </TableCell>
-                <TableCell>{formatDate(transaction.date)}</TableCell>
+                <TableCell>{formatDate(transaction.datePayment)}</TableCell>
                 <TableCell>
                   {formatCurrency(transaction.amount.toString())}
                 </TableCell>

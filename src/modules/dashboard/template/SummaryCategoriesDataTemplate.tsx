@@ -8,15 +8,18 @@ import { TRANSACTION_CATEGORY_TRANSLATION } from '@/modules/transactions/constan
 
 type SummaryCategoriesDataTemplateProps = {
   month: string
+  year: string
   className?: string
 }
 
 export const SummaryCategoriesDataTemplate = async ({
   month,
+  year,
   className,
 }: SummaryCategoriesDataTemplateProps) => {
   const summaryCategoriesExpenses = await getSummaryTransactionCategories(
     month,
+    year,
     TransactionType.EXPENSE
   )
 

@@ -9,14 +9,16 @@ import { getSummaryData } from '../actions'
 type PieChartDataFormProps = {
   className?: string
   month: string
+  year: string
 }
 
 export const PieChartDataTemplate = async ({
   className,
   month,
+  year,
 }: PieChartDataFormProps) => {
   const { summaryIncomes, summaryExpenses, summaryInvested } =
-    await getSummaryData(month)
+    await getSummaryData(month, year)
 
   const summaryTotal = summaryIncomes + summaryExpenses + summaryInvested
 
@@ -62,7 +64,7 @@ export const PieChartDataTemplate = async ({
 
       {!verifyData ? (
         <PieCharts
-          title={`Gráfico de alocação de recursos de faturamento no mês ${month}`}
+          title={`Gráfico de alocação de recursos de faturamento no mês ${month} do ano ${year}`}
           description={'Recursos por tipo de transação'}
           className={cn(className)}
           chartData={chartData}

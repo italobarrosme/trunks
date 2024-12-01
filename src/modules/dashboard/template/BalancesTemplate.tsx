@@ -10,14 +10,16 @@ import { getSummaryData } from '../actions'
 type BalancesTemplateProps = {
   className?: string
   month: string
+  year: string
 }
 
 export const BalancesTemplate = async ({
   className,
   month,
+  year,
 }: BalancesTemplateProps) => {
   const { summaryBalance, summaryExpenses, summaryIncomes, summaryInvested } =
-    await getSummaryData(month)
+    await getSummaryData(month, year)
 
   return (
     <div className={cn('grid grid-cols-3 p-4', className)}>

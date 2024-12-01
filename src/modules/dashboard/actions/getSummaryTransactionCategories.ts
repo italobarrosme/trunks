@@ -7,6 +7,7 @@ import { getUser } from '@/modules/auth/actions'
 
 export const getSummaryTransactionCategories = async (
   month: string,
+  year: string,
   type: TransactionType
 ) => {
   const { userId } = getUser()
@@ -17,14 +18,14 @@ export const getSummaryTransactionCategories = async (
   const where = {
     userId,
     datePayment: {
-      gte: new Date(`2024-${month}-01`),
-      lt: new Date(`2024-${month}-31`),
+      gte: new Date(`${year}-${month}-01`),
     },
   }
 
   const totalSummary = await getSummaryTransactionType({
     type,
     month,
+    year,
   })
 
   const group = await db.transaction.groupBy({

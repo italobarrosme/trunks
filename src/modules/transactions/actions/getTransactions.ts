@@ -1,4 +1,5 @@
 import { getUser } from '@/modules/auth/actions'
+import { Transaction } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { db } from 'prisma/prisma'
 
@@ -6,7 +7,16 @@ type GetTransactionParams = {
   quantity: number
 }
 
-export const getTransactions = async ({ quantity }: GetTransactionParams) => {
+export type GetTransactionResponse = Array<
+  Omit<Transaction, 'amount' | 'datePayment'> & {
+    amount: number
+    datePayment: string
+  }
+>
+
+export const getTransactions = async ({
+  quantity,
+}: GetTransactionParams): Promise<GetTransactionResponse> => {
   const { userId } = getUser()
 
   try {
