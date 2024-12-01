@@ -24,6 +24,7 @@ import {
 import { HandleTransactionForm } from '../../forms'
 import { DeleteTransactionForm } from '../../forms/DeleteTransactionForm'
 import { GetTransactionResponse } from '../../actions/getTransactions'
+import { cn } from '@/utils'
 
 type TableTransactionsProps = {
   transactions: GetTransactionResponse
@@ -57,10 +58,17 @@ export const TableTransactions = ({ transactions }: TableTransactionsProps) => {
         </TableHeader>
         <TableBody>
           {transactions.length > 0 ? (
-            transactions.map((transaction: any) => (
+            transactions.map((transaction) => (
               <TableRow
                 key={transaction.id}
-                className="cursor-pointer bg-neutral-dark/55 font-normal text-neutral-white "
+                className={cn(
+                  'cursor-pointer bg-neutral-dark/55 font-normal text-neutral-white ',
+                  {
+                    'bg-feedback-info/10': transaction.status === 'PENDING',
+                    'bg-feedback-success/10': transaction.status === 'PAID',
+                    'bg-feedback-danger/10': transaction.status === 'OVERDUE',
+                  }
+                )}
               >
                 <TableCell>{transaction.name}</TableCell>
                 <TableCell>
@@ -87,13 +95,15 @@ export const TableTransactions = ({ transactions }: TableTransactionsProps) => {
                   )}
                 </TableCell>
                 <TableCell>{formatDate(transaction.datePayment)}</TableCell>
-                <TableCell>
-                  {formatCurrency(transaction.amount.toString())}
-                </TableCell>
+                <TableCell>{formatCurrency(transaction.amount)}</TableCell>
                 <TableCell className="flex">
                   <HandleTransactionForm
                     edit
-                    editValues={transaction}
+                    editValues={{
+                      ...transaction,
+                      amount: transaction.amount.toString(),
+                      description: transaction.description ?? undefined,
+                    }}
                     trigger={
                       <Button
                         variant="fit/ghost"

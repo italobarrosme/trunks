@@ -9,15 +9,15 @@ export const COLUMN_HEADERS_TABLE = [
 ]
 
 export enum PAYMENT_METHOD_TRANSLATION {
-  CASH = 'Dinheiro',
-  DEBIT_CARD = 'Débito',
-  CREDIT_CARD = 'Cartão de Crédito',
-  BANK_TRANSFER = 'Transferência Bancária',
-  BANK_SLIP = 'Boleto Bancário',
   PIX = 'PIX',
+  CREDIT_CARD = 'Cartão de Crédito',
+  BANK_SLIP = 'Boleto Bancário',
   PAYPAL = 'Paypal',
   BITCOIN = 'Bitcoin',
   CRYPTO = 'Criptomoeda',
+  DEBIT_CARD = 'Débito',
+  BANK_TRANSFER = 'Transferência Bancária',
+  CASH = 'Dinheiro',
   OTHER = 'Outro',
 }
 
@@ -44,4 +44,11 @@ export enum TRANSACTION_TYPE_TRANSLATION {
   EXPENSE = 'Despesa',
   RECURRING_EXPENSE = 'Despesa Recorrente',
   INVESTMENT = 'Investimento',
+}
+
+export enum TRANSACTION_STATUS_TRANSLATION {
+  PENDING = 'Pendente',
+  PAID = 'Pago',
+  CANCELED = 'Cancelado',
+  OVERDUE = 'Atrasado',
 }
